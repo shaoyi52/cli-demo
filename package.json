@@ -1,0 +1,29 @@
+{
+  "name": "yuyi-cli",
+  "version": "1.0.0",
+  "description": "node cli study",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shaoyi52/cli-demo.git"
+  },
+  "bin": {
+    "yuyi-cli": "index.js"
+  },
+  "keywords": [
+    "cli"
+  ],
+  "author": "yuyi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shaoyi52/cli-demo/issues"
+  },
+  "homepage": "https://github.com/shaoyi52/cli-demo#readme",
+  "dependencies": {
+    "chalk": "^2.4.1",
+    "commander": "^2.18.0"
+  }
+}
