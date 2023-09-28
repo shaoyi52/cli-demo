@@ -22,7 +22,7 @@ function App() {
           target="_blank"
           rel="noreferrer noopener"
         >
-          ZEIT Now
+          ZEIT Now122
         </a>
         !
       </h2>
