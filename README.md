@@ -1,19 +1,29 @@
-# React Example
+# vue-project
 
-This directory is a brief example of a [React](https://reactjs.org/) app with serverless functions that can be deployed to ZEIT Now with zero configuration.
+This template should help get you started developing with Vue 3 in Vite.
 
-## How we created this example 
+## Recommended IDE Setup
 
-To get started with React on Now, you can use the [Create-React-App CLI](https://reactjs.org/docs/create-a-new-react-app.html#create-react-app) to initialize the project:
+[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
 
-```shell
-$ npx create-react-app my-app
+## Customize configuration
+
+See [Vite Configuration Reference](https://vitejs.dev/config/).
+
+## Project Setup
+
+```sh
+npm install
 ```
 
-## Deploying this Example
+### Compile and Hot-Reload for Development
 
-Once initialized, you can deploy the React example with just a single command:
+```sh
+npm run dev
+```
 
-```shell
-$ now
+### Compile and Minify for Production
+
+```sh
+npm run build
 ```
