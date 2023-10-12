@@ -9,11 +9,13 @@
 //global._base = __dirname + "/"; //设置全局requir目录前缀
 const express = require("express"),
   app = express();
+  const { db,tool } = require("./common/tool/_require");
+
 //let compress = require("compression"); //gzip压缩
 //require("./common/prototype/_index");
 //let cors = require("cors");
 //app.use(compress());
-const routeEach = require("./core/_routeEach");
+//const routeEach = require("./core/_routeEach");
 //const hostArr = require("./common/host"); //允许访问的域名
 //const { fs, path, tool, log } = require("./common/tool/_require");
 
@@ -42,11 +44,27 @@ const routeEach = require("./core/_routeEach");
     next();
   }
 }); */
-app.get('/api', (req, res) => {
+console.log('bb')
+app.get('/api', async(req, res) => {
   const path = `/api/item/22`;
+  let searchSqlStart = `select * from user`;
   res.setHeader('Content-Type', 'text/html');
   res.setHeader('Cache-Control', 's-max-age=1, stale-while-revalidate');
-  res.end(`Hello! Go to item: <a href="${path}">${path}</a>`);
+  try {
+    users = await db.query(`${searchSqlStart}`);
+    count = (await db.query(`select count(*) from user `))[0]["count(*)"];
+    let bookList = {
+      count: count,
+      book: users,
+    };
+  
+    res.send(tool.toJson(bookList, "", 1000));
+  } catch (err) {
+    res.end(`Hello! Go to item1: <a href="${path}">${path}</a>`);
+
+    res.send(tool.toJson(null, "数据出错", 1002));
+    return;
+  }
 });
-routeEach(app);
+//routeEach(app);
 module.exports = app;
