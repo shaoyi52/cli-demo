@@ -13,7 +13,7 @@ const express = require("express"),
 //require("./common/prototype/_index");
 //let cors = require("cors");
 //app.use(compress());
-//const routeEach = require("./core/_routeEach");
+const routeEach = require("./core/_routeEach");
 //const hostArr = require("./common/host"); //允许访问的域名
 //const { fs, path, tool, log } = require("./common/tool/_require");
 
@@ -48,5 +48,5 @@ app.get('/api', (req, res) => {
   res.setHeader('Cache-Control', 's-max-age=1, stale-while-revalidate');
   res.end(`Hello! Go to item: <a href="${path}">${path}</a>`);
 });
-//routeEach(app);
+routeEach(app);
 module.exports = app;
