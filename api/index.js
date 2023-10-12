@@ -6,7 +6,7 @@
  * @LastEditTime: 2022-07-29 11:45:53
  * @FilePath: \vue3-inith:\gitHub\node-api\app.js
  */
-global._base = __dirname + "/"; //设置全局requir目录前缀
+//global._base = __dirname + "/"; //设置全局requir目录前缀
 const express = require("express"),
   app = express();
 //let compress = require("compression"); //gzip压缩
@@ -42,6 +42,11 @@ app.use((req, res, next) => {
     next();
   }
 });
-
-routeEach(app);
+app.get('/api', (req, res) => {
+  const path = `/api/item/${v4()}`;
+  res.setHeader('Content-Type', 'text/html');
+  res.setHeader('Cache-Control', 's-max-age=1, stale-while-revalidate');
+  res.end(`Hello! Go to item: <a href="${path}">${path}</a>`);
+});
+//routeEach(app);
 module.exports = app;
