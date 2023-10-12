@@ -17,7 +17,7 @@ const express = require("express"),
 //const hostArr = require("./common/host"); //允许访问的域名
 //const { fs, path, tool, log } = require("./common/tool/_require");
 
-app.all("*", function (req, res, next) {
+/* app.all("*", function (req, res, next) {
   res.header("Access-Control-Allow-Credentials", true);
   res.header("Access-Control-Allow-Origin", req.headers.origin);
   res.header("Access-Control-Allow-Headers", "X-Requested-With");
@@ -25,12 +25,12 @@ app.all("*", function (req, res, next) {
   res.header("X-Powered-By", " 3.2.1");
   res.header("Content-Type", "application/json;charset=utf-8");
   next();
-});
+}); */
 
 //morgan(app);
 //app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+//app.use(express.json());
+//app.use(express.urlencoded({ extended: false }));
 // 字段不符合就就不允许
 /* app.use((req, res, next) => {
   
