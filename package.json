@@ -6,7 +6,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "service": "nodemon api/bin/www.js"
+    "service": "nodemon api/bin/_www.js"
   },
   "dependencies": {
     "async": "^3.2.0",

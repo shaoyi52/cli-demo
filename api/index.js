@@ -6,60 +6,42 @@
  * @LastEditTime: 2022-07-29 11:45:53
  * @FilePath: \vue3-inith:\gitHub\node-api\app.js
  */
-global._base = __dirname + "/"; //ÉèÖÃÈ«¾ÖrequirÄ¿Â¼Ç°×º
+global._base = __dirname + "/"; //è®¾ç½®å…¨å±€requirç›®å½•å‰ç¼€
 const express = require("express"),
   app = express();
-let compress = require("compression"); //gzipÑ¹Ëõ
-require("./common/prototype");
+let compress = require("compression"); //gzipå‹ç¼©
+require("./common/prototype/_index");
 let cors = require("cors");
 app.use(compress());
-const routeEach = require("./core/routeEach");
-const hostArr = require("./common/host"); //ÔÊĞí·ÃÎÊµÄÓòÃû
-const { fs, path, tool, log } = require("./common/tool/require");
+const routeEach = require("./core/_routeEach");
+//const hostArr = require("./common/host"); //å…è®¸è®¿é—®çš„åŸŸå
+const { fs, path, tool, log } = require("./common/tool/_require");
 
 app.all("*", function (req, res, next) {
-  if (hostArr.indexOf(req.headers.host) == -1) {
-    log.error(`${req.headers.host}ÔÚ${new Date().Format()}·ÃÎÊ£¬ÒÑ±»À¹½Ø`);
-    res.send("·Ç·¨·ÃÎÊ£¡");
-  } else {
-    //res.header("Access-Control-Allow-Origin", "*");
-
-    res.header("Access-Control-Allow-Credentials", true);
-    res.header("Access-Control-Allow-Origin", req.headers.origin);
-    res.header("Access-Control-Allow-Headers", "X-Requested-With");
-    res.header("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS");
-    res.header("X-Powered-By", " 3.2.1");
-    res.header("Content-Type", "application/json;charset=utf-8");
-    next();
-  }
+  res.header("Access-Control-Allow-Credentials", true);
+  res.header("Access-Control-Allow-Origin", req.headers.origin);
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+  res.header("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS");
+  res.header("X-Powered-By", " 3.2.1");
+  res.header("Content-Type", "application/json;charset=utf-8");
+  next();
 });
 
 //morgan(app);
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-// ×Ö¶Î²»·ûºÏ¾Í¾Í²»ÔÊĞí
+// å­—æ®µä¸ç¬¦åˆå°±å°±ä¸å…è®¸
 app.use((req, res, next) => {
+  
   console.log(tool.getParams);
   let limit = tool.getParams(req, "limit");
   if (limit && limit > 200) {
-    res.send(tool.toJson("", "limit²ÎÊı²»ÄÜ´óÓÚ200", 1002));
+    res.send(tool.toJson("", "limitå‚æ•°ä¸èƒ½å¤§äº200", 1002));
   } else {
     next();
   }
 });
-/*
-app.use("/a", function(req, res, next) {
-  console.log("111");
-  next();
-});
-app.all("/a/b", function(req, res, next) {
-  console.log("222");
-  res.end("Ö´ĞĞÍê±Ï");
-});
-app.all("/c/b", function(req, res, next) {
-  console.log("33");
-  res.end("Ö´ĞĞÍê±Ïc b");
-});*/
+
 routeEach(app);
 module.exports = app;
