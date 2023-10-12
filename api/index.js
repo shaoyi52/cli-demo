@@ -10,12 +10,12 @@
 const express = require("express"),
   app = express();
 //let compress = require("compression"); //gzip压缩
-require("./common/prototype/_index");
+//require("./common/prototype/_index");
 //let cors = require("cors");
 //app.use(compress());
-const routeEach = require("./core/_routeEach");
+//const routeEach = require("./core/_routeEach");
 //const hostArr = require("./common/host"); //允许访问的域名
-const { fs, path, tool, log } = require("./common/tool/_require");
+//const { fs, path, tool, log } = require("./common/tool/_require");
 
 app.all("*", function (req, res, next) {
   res.header("Access-Control-Allow-Credentials", true);
@@ -32,7 +32,7 @@ app.all("*", function (req, res, next) {
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 // 字段不符合就就不允许
-app.use((req, res, next) => {
+/* app.use((req, res, next) => {
   
   console.log(tool.getParams);
   let limit = tool.getParams(req, "limit");
@@ -41,7 +41,7 @@ app.use((req, res, next) => {
   } else {
     next();
   }
-});
+}); */
 app.get('/api', (req, res) => {
   const path = `/api/item/${v4()}`;
   res.setHeader('Content-Type', 'text/html');
