@@ -23,7 +23,7 @@ function routeEach(app, pathArr, basePathStr, basePath) {
       routeEach(app, arr, `${basePathStr}/${pathArr[i]}`, basePath);
     } else {
       let str = "";
-      if (pathArr[i] == "index.js") {
+      if (pathArr[i] == "_index.js") {
         str = `${basePathStr}`;
       } else {
         str = `${basePathStr}/${pathArr[i].substring(
@@ -39,7 +39,7 @@ function routeEach(app, pathArr, basePathStr, basePath) {
       if (basePathStr == "/images") {
         app.use(str, require(pathStr));
       } else {
-        console.log(str + "---" + pathStr);
+        console.log("/api"+str + "---" + pathStr);
         app.all("/api"+str, require(pathStr)); //切记不要用app.use
       }
     }

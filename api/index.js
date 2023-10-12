@@ -9,10 +9,10 @@
 global._base = __dirname + "/"; //设置全局requir目录前缀
 const express = require("express"),
   app = express();
-let compress = require("compression"); //gzip压缩
+//let compress = require("compression"); //gzip压缩
 require("./common/prototype/_index");
-let cors = require("cors");
-app.use(compress());
+//let cors = require("cors");
+//app.use(compress());
 const routeEach = require("./core/_routeEach");
 //const hostArr = require("./common/host"); //允许访问的域名
 const { fs, path, tool, log } = require("./common/tool/_require");
@@ -28,7 +28,7 @@ app.all("*", function (req, res, next) {
 });
 
 //morgan(app);
-app.use(cors());
+//app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 // 字段不符合就就不允许
