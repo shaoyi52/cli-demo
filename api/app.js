@@ -6,21 +6,21 @@
  * @LastEditTime: 2022-07-29 11:45:53
  * @FilePath: \vue3-inith:\gitHub\node-api\app.js
  */
-global._base = __dirname + "/"; //ÉèÖÃÈ«¾ÖrequirÄ¿Â¼Ç°×º
+global._base = __dirname + "/"; //è®¾ç½®å…¨å±€requirç›®å½•å‰ç¼€
 const express = require("express"),
   app = express();
-let compress = require("compression"); //gzipÑ¹Ëõ
+let compress = require("compression"); //gzipå‹ç¼©
 require("./common/prototype");
 let cors = require("cors");
 app.use(compress());
 const routeEach = require("./core/routeEach");
-const hostArr = require("./common/host"); //ÔÊĞí·ÃÎÊµÄÓòÃû
+const hostArr = require("./common/host"); //å…è®¸è®¿é—®çš„åŸŸå
 const { fs, path, tool, log } = require("./common/tool/require");
 
 app.all("*", function (req, res, next) {
   if (hostArr.indexOf(req.headers.host) == -1) {
-    log.error(`${req.headers.host}ÔÚ${new Date().Format()}·ÃÎÊ£¬ÒÑ±»À¹½Ø`);
-    res.send("·Ç·¨·ÃÎÊ£¡");
+    log.error(`${req.headers.host}åœ¨${new Date().Format()}è®¿é—®ï¼Œå·²è¢«æ‹¦æˆª`);
+    res.send("éæ³•è®¿é—®ï¼");
   } else {
     //res.header("Access-Control-Allow-Origin", "*");
 
@@ -38,12 +38,12 @@ app.all("*", function (req, res, next) {
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-// ×Ö¶Î²»·ûºÏ¾Í¾Í²»ÔÊĞí
+// å­—æ®µä¸ç¬¦åˆå°±å°±ä¸å…è®¸
 app.use((req, res, next) => {
   console.log(tool.getParams);
   let limit = tool.getParams(req, "limit");
   if (limit && limit > 200) {
-    res.send(tool.toJson("", "limit²ÎÊı²»ÄÜ´óÓÚ200", 1002));
+    res.send(tool.toJson("", "limitå‚æ•°ä¸èƒ½å¤§äº200", 1002));
   } else {
     next();
   }
@@ -55,11 +55,19 @@ app.use("/a", function(req, res, next) {
 });
 app.all("/a/b", function(req, res, next) {
   console.log("222");
-  res.end("Ö´ĞĞÍê±Ï");
+  res.end("æ‰§è¡Œå®Œæ¯•");
 });
 app.all("/c/b", function(req, res, next) {
   console.log("33");
-  res.end("Ö´ĞĞÍê±Ïc b");
+  res.end("æ‰§è¡Œå®Œæ¯•c b");
 });*/
 routeEach(app);
+
 module.exports = app;
+
+//æ•è·nodeå¼‚å¸¸  ä¸å…è®¸é€€å‡º
+process.on("uncaughtException", function (err) {
+  console.log("apiå¼‚å¸¸é€€å‡ºè¢«æ•è·äº†");
+  console.error(err.stack);
+  console.log("Node NOT Exiting...");
+});
