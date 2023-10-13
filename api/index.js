@@ -44,7 +44,6 @@ const express = require("express"),
     next();
   }
 }); */
-console.log('bb')
 app.get('/api', async(req, res) => {
   const path = `/api/item/22`;
   let searchSqlStart = `select * from user`;
@@ -66,5 +65,27 @@ app.get('/api', async(req, res) => {
     return;
   }
 });
+let router = express.Router()
+router.use("", async function (req, res, next) {
+  let path='1122'
+  let searchSqlStart = `select * from user`;
+
+  try {
+    users = await db.query(`${searchSqlStart}`);
+    count = (await db.query(`select count(*) from user `))[0]["count(*)"];
+    let bookList = {
+      count: count,
+      book: users,
+    };
+  
+    res.send(tool.toJson(bookList, "sucess", 1000));
+  } catch (err) {
+    res.end(`Hello! Go to item1: <a href="${path}">${path}</a>`);
+
+    res.send(tool.toJson(null, "数据出错", 1002));
+    return;
+  }
+})
+app.all("/api/user", router)
 //routeEach(app);
 module.exports = app;
