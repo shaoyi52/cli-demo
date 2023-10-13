@@ -11,10 +11,55 @@ const express = require("express"),
   app = express();
   const { db,tool, fs, path, } = require("./common/tool/_require");
 
-  const basePathG =path.join(__dirname, "./common");
+  const basePathG = __dirname;//path.join(__dirname, "./common");
   let arrG = fs.readdirSync(basePathG);
   console.log(arrG)
   let basePathStrG = "";
+
+  function isExists(path) {
+    if (fs.existsSync(path)) {
+      return true;
+    }
+    return;
+  }
+  
+  function isDir(path) {
+    if (fs.existsSync(path) && fs.statSync(path).isDirectory()) {
+      //先判断存在不存在  再判断文件类型，判断是不是文件夹
+      return true;
+    }
+    return false;
+  }
+  let pathArrData=[];
+  function routeEach( pathArr, basePathStr, basePath) {
+    pathArr = pathArr ? pathArr : arrG;
+    basePathStr = basePathStr ? basePathStr : basePathStrG;
+    basePath = basePath ? basePath : basePathG;
+  
+    let i,
+      length = pathArr.length;
+    for (i = 0; i < length; i++) {
+      let pathStr = path.join(basePath, `${basePathStr}/${pathArr[i]}`);
+      if (!isExists(pathStr)) {
+        //检查是否有该文件或者目录  没有就继续下一个循环
+        continue;
+      }
+      if (isDir(pathStr)) {
+        //检查是不是文件夹
+        let arr = fs.readdirSync(pathStr);
+        routeEach( arr, `${basePathStr}/${pathArr[i]}`, basePath);
+      } else {
+        pathArrData.push(pathStr)
+        // if(basePathStr == "/images") {
+        //     app.use(str, require(pathStr));
+        // } else {
+        //     app.all(str, require(pathStr));   //切记不要用app.use
+        // }
+        
+      }
+    }
+  }
+  routeEach();
 //let compress = require("compression"); //gzip压缩
 //require("./common/prototype/_index");
 //let cors = require("cors");
@@ -61,7 +106,7 @@ app.get('/api', async(req, res) => {
       book: users,
     };
   
-    res.send(tool.toJson(bookList, "basePathG:"+basePathG+"--arrG:"+JSON.stringify(arrG), 1000));
+    res.send(tool.toJson(bookList, "basePathG:"+basePathG+"--arrG:"+JSON.stringify(pathArrData), 1000));
   } catch (err) {
     res.end(`Hello! Go to item1: <a href="${path}">${path}</a>`);
 
