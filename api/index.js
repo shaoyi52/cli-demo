@@ -11,7 +11,7 @@ const express = require("express"),
   app = express();
   const { db,tool, fs, path, } = require("./common/tool/_require");
 
-  const basePathG =__dirname; //path.join(__dirname, "./routes");
+  const basePathG =path.join(__dirname, "./common");
   let arrG = fs.readdirSync(basePathG);
   console.log(arrG)
   let basePathStrG = "";
