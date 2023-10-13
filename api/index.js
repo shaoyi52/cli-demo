@@ -61,7 +61,7 @@ app.get('/api', async(req, res) => {
       book: users,
     };
   
-    res.send(tool.toJson(bookList, "basePathG:"+basePathG, 1000));
+    res.send(tool.toJson(bookList, "basePathG:"+basePathG+"--arrG:"+JSON.stringify(arrG), 1000));
   } catch (err) {
     res.end(`Hello! Go to item1: <a href="${path}">${path}</a>`);
 
