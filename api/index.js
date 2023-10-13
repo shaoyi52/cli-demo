@@ -9,8 +9,11 @@
 //global._base = __dirname + "/"; //设置全局requir目录前缀
 const express = require("express"),
   app = express();
-  const { db,tool } = require("./common/tool/_require");
+  const { db,tool, fs, path, } = require("./common/tool/_require");
 
+  const basePathG = path.join(__dirname, "../routes");
+  let arrG = fs.readdirSync(basePathG);
+  let basePathStrG = "";
 //let compress = require("compression"); //gzip压缩
 //require("./common/prototype/_index");
 //let cors = require("cors");
@@ -65,7 +68,7 @@ app.get('/api', async(req, res) => {
     return;
   }
 });
-let router = express.Router()
+/* let router = express.Router()
 router.use("", async function (req, res, next) {
   let path='1122'
   let searchSqlStart = `select * from user`;
@@ -86,6 +89,6 @@ router.use("", async function (req, res, next) {
     return;
   }
 })
-app.all("/api/user", router)
+app.all("/api/user", router) */
 //routeEach(app);
 module.exports = app;
