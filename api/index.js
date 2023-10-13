@@ -11,7 +11,7 @@ const express = require("express"),
   app = express();
   const { db,tool, fs, path, } = require("./common/tool/_require");
 
-  const basePathG = path.join(__dirname, "../routes");
+  const basePathG = path.join(__dirname, "./routes");
   let arrG = fs.readdirSync(basePathG);
   let basePathStrG = "";
 //let compress = require("compression"); //gzip压缩
@@ -60,7 +60,7 @@ app.get('/api', async(req, res) => {
       book: users,
     };
   
-    res.send(tool.toJson(bookList, "", 1000));
+    res.send(tool.toJson(bookList, "basePathG:"+basePathG, 1000));
   } catch (err) {
     res.end(`Hello! Go to item1: <a href="${path}">${path}</a>`);
 
