@@ -11,8 +11,9 @@ const express = require("express"),
   app = express();
   const { db,tool, fs, path, } = require("./common/tool/_require");
 
-  const basePathG = path.join(__dirname, "./routes");
+  const basePathG =__dirname; //path.join(__dirname, "./routes");
   let arrG = fs.readdirSync(basePathG);
+  console.log(arrG)
   let basePathStrG = "";
 //let compress = require("compression"); //gzip压缩
 //require("./common/prototype/_index");
