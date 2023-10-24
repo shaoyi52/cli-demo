@@ -1,7 +1,7 @@
 const toJson = function(data, msg, code) {
     return JSON.stringify({
         code: code || 1000,
-        data: data,
+        result: data,
         msg: msg || ''
     });
 
