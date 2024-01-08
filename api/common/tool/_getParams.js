@@ -11,7 +11,7 @@
 * */
 function getParams(req, name, notrans){
     let body = (req.query[name] || req.body[name] || '');
-    if(!notrans){
+    if(!notrans&&Object.prototype.toString.call(body)==="[object String]"){
         // return body.replace(/"/g,"'");
         return body
             .replace(/\\/g,"\\\\")

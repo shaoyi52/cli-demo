@@ -7,17 +7,25 @@ const { oauth, tool, db, log } = require("../../common/tool/_require");
  *   limit 一页几条
  * */
 router.use("", async function (req, res, next) {
-    let name = tool.getParams(req, "name");
-  
-    if (!name) {
-        res.send(tool.toJson(null, "名称不能为空", 1002));
+    let config = tool.getParams(req, "config",true);
+    const {options,type,answer,analysis,qtype,question}=config
+   
+    if (!config.question) {
+        res.send(tool.toJson(null, "问题不能为空", 1002));
         return;
       }
-      let obj = {
-        name:name
-      }
-    try {
-        let sql = `INSERT INTO questions(name) VALUES ("${ obj.name}")`;
+      if (!config.answer) {
+        res.send(tool.toJson(null, "答案不能为空", 1002));
+        return;
+      } 
+      let insertSqlArr=  [options,type,answer,analysis,qtype,question];
+      insertSqlArr.forEach((value, index) => {
+        insertSqlArr[index] = `'${
+          value ? (value + '').replace(/'/g, `"`) : value
+        }'`;
+      });
+      try {
+        let sql = `INSERT INTO questions(options,type,answer,analysis,qtype,question) VALUES (${insertSqlArr.join(',')})`;
           await db.query(sql);
     } catch (err) {
       res.send(tool.toJson(null, `题目添加失败，失败原因：${err}`, 1002));

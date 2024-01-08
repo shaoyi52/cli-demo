@@ -48,19 +48,7 @@ app.use((req, res, next) => {
     next();
   }
 });
-/*
-app.use("/a", function(req, res, next) {
-  console.log("111");
-  next();
-});
-app.all("/a/b", function(req, res, next) {
-  console.log("222");
-  res.end("执行完毕");
-});
-app.all("/c/b", function(req, res, next) {
-  console.log("33");
-  res.end("执行完毕c b");
-});*/
+
 routeEach(app);
 
 module.exports = app;
