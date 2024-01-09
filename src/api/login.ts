@@ -10,13 +10,21 @@ const clientId = import.meta.env.VITE_APP_CLIENT_ID;
  * @param data {LoginData}
  * @returns
  */
-export function login(data: LoginData): AxiosPromise<LoginResult> {
+//export function login(data: LoginData): AxiosPromise<LoginResult> {
+export function login(data: LoginData) {
   const params = {
     ...data,
     clientId: data.clientId || clientId,
     grantType: data.grantType || 'password'
   };
-  return new Promise((resolve)=>{return resolve({"data":{'access_token':"tssdsdf855211588"}})})
+  return new Promise((resolve) => {
+    return resolve({
+      data: { access_token: 'tssdsdf855211588' },
+      status: 200,
+      statusText: 'sucess',
+      headers: {}
+    });
+  });
   return request({
     url: '/auth/login',
     headers: {
@@ -88,65 +96,68 @@ export function callback(data: LoginData): AxiosPromise<any> {
 
 // 获取用户详细信息
 export function getInfo(): AxiosPromise<UserInfo> {
-  return new Promise((resolve)=> resolve({
-      "code": 200,
-      "data": {
-        "user": {
-            "userId": 1,
-            "tenantId": "000000",
-            "deptId": 103,
-            "userName": "admin",
-            "nickName": "疯狂的狮子Li",
-            "userType": "sys_user",
-            "email": "crazyLionLi@163.com",
-            "phonenumber": "15888888888",
-            "sex": "0",
-            "avatar": null,
-            "status": "0",
-            "loginIp": "113.89.233.66",
-            "loginDate": "2024-01-08 16:20:12",
-            "remark": "管理员",
-            "createTime": "2023-12-08 10:55:01",
-            "dept": {
-                "deptId": 103,
-                "parentId": 101,
-                "parentName": null,
-                "ancestors": "0,100,101",
-                "deptName": "研发部门",
-                "orderNum": 1,
-                "leader": 1,
-                "leaderName": null,
-                "phone": null,
-                "email": "xxx@qq.com",
-                "status": "0",
-                "createTime": null
-            },
-            "roles": [
-                {
-                    "roleId": 1,
-                    "roleName": "超级管理员",
-                    "roleKey": "superadmin",
-                    "roleSort": 1,
-                    "dataScope": "1",
-                    "menuCheckStrictly": null,
-                    "deptCheckStrictly": null,
-                    "status": "0",
-                    "remark": "管理员",
-                    "createTime": null,
-                    "flag": false,
-                    "superAdmin": true
-                }
-            ],
-            "roleIds": null,
-            "postIds": null,
-            "roleId": 1
+  return new Promise((resolve) =>
+    resolve({
+      code: 200,
+      data: {
+        user: {
+          userId: 1,
+          tenantId: '000000',
+          deptId: 103,
+          userName: 'admin',
+          nickName: '疯狂的狮子Li',
+          userType: 'sys_user',
+          email: 'crazyLionLi@163.com',
+          phonenumber: '15888888888',
+          sex: '0',
+          avatar: '',
+          status: '0',
+          loginIp: '113.89.233.66',
+          loginDate: '2024-01-08 16:20:12',
+          remark: '管理员',
+          createTime: '2023-12-08 10:55:01',
+          dept: {
+            deptId: 103,
+            parentId: 101,
+            parentName: '',
+            ancestors: '0,100,101',
+            deptName: '研发部门',
+            orderNum: 1,
+            leader: '1',
+            //leaderName: '',
+            phone: '',
+            email: 'xxx@qq.com',
+            status: '0',
+            createTime: '',
+            id: '',
+            children: [],
+            delFlag: '',
+            menuId: ''
+          },
+          roles: [
+            {
+              roleId: 1,
+              roleName: '超级管理员',
+              roleKey: 'superadmin',
+              roleSort: 1,
+              dataScope: '1',
+              menuCheckStrictly: false,
+              deptCheckStrictly: false,
+              status: '0',
+              remark: '管理员',
+              createTime: '',
+              flag: false,
+              delFlag: '0',
+              admin: true,
+              superAdmin: true
+            }
+          ],
+          roleIds: null,
+          postIds: null,
+          roleId: 1
         },
-        "permissions": [
-            "*:*:*"
-        ],
-        "roles": [
-            "superadmin"
-        ]
+        permissions: ['*:*:*'],
+        roles: ['superadmin']
       }
     })
   );

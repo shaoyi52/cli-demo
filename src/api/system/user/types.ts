@@ -9,6 +9,7 @@ export interface UserInfo {
   user: UserVO;
   roles: string[];
   permissions: string[];
+  dept?: Partial<DeptVO>;
 }
 
 /**
