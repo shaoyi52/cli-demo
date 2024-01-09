@@ -30,7 +30,8 @@ export const usePermissionStore = defineStore('permission', () => {
   const setSidebarRouters = (routes: RouteOption[]): void => {
     sidebarRouters.value = routes;
   };
-  const generateRoutes = async (): Promise<RouteOption[]> => {
+  //const generateRoutes = async (): Promise<RouteOption[]> => {
+  const generateRoutes = async () => {
     const res = await getRouters();
     const { data } = res;
     const sdata = JSON.parse(JSON.stringify(data));
@@ -101,8 +102,8 @@ export const usePermissionStore = defineStore('permission', () => {
       if (lastRouter) {
         el.path = lastRouter.path + '/' + el.path;
         if (el.children && el.children.length) {
-          children = children.concat(filterChildren(el.children, el))
-          return
+          children = children.concat(filterChildren(el.children, el));
+          return;
         }
       }
       children = children.concat(el);

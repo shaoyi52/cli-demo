@@ -95,7 +95,8 @@ export function callback(data: LoginData): AxiosPromise<any> {
 }
 
 // 获取用户详细信息
-export function getInfo(): AxiosPromise<UserInfo> {
+//export function getInfo(): AxiosPromise<UserInfo> {
+export function getInfo() {
   return new Promise((resolve) =>
     resolve({
       code: 200,

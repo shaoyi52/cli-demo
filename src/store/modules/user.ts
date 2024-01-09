@@ -19,7 +19,8 @@ export const useUserStore = defineStore('user', () => {
    * @param userInfo
    * @returns
    */
-  const login = async (userInfo: LoginData): Promise<void> => {
+  // const login = async (userInfo: LoginData): Promise<void> => {
+  const login = async (userInfo: LoginData) => {
     const [err, res] = await to(loginApi(userInfo));
     if (res) {
       const data = res.data;
