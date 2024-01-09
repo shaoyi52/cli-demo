@@ -122,6 +122,8 @@ service.interceptors.response.use(
         });
       }
       return Promise.reject('无效的会话，或者会话已过期，请重新登录。');
+    } else if (code === 1000) {
+      return Promise.resolve(res.data);
     } else if (code === HttpStatus.SERVER_ERROR) {
       console.log(msg);
       ElMessage({ message: msg, type: 'error' });

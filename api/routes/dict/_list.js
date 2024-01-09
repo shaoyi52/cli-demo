@@ -29,18 +29,18 @@ router.use('', async function (req, res, next) {
   }
   try {
     list = await db.query(`${searchSqlStart} ${sql} ${searchSqlEnd}`);
-    count = (await db.query(`select count(*) from tags ${sql}`))[0]['count(*)'];
+    count = (await db.query(`select count(*) from dict ${sql}`))[0]['count(*)'];
   } catch (err) {
     res.send(tool.toJson(null, '数据出错', 1002));
     return;
   }
 
   let result = {
-    count,
-    list
+    total: count,
+    rows: list
   };
 
-  res.send(tool.toJson(result, '成功', 1000));
+  res.send(tool.toJson({ ...result }, '成功', 1000));
 });
 
 module.exports = router;

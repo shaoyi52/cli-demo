@@ -25,7 +25,7 @@ router.use('', async function (req, res, next) {
     remark: remark
   };
   try {
-    let sql = `INSERT INTO dict(dictName,dictType,remark) VALUES ("${list.dictName},${list.dictType},${list.remark}")`;
+    let sql = `INSERT INTO dict(dictName,dictType,remark) VALUES ("${list.dictName}","${list.dictType}","${list.remark}")`;
     await db.query(sql);
   } catch (err) {
     res.send(tool.toJson(null, `你的字典添加失败，失败原因：${err}`, 1002));

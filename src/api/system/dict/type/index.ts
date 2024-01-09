@@ -5,7 +5,7 @@ import { AxiosPromise } from 'axios';
 // 查询字典类型列表
 export function listType(query: DictTypeQuery): AxiosPromise<DictTypeVO[]> {
   return request({
-    url: '/system/dict/type/list',
+    url: '/dict/list',
     method: 'get',
     params: query
   });
@@ -22,7 +22,7 @@ export function getType(dictId: number | string): AxiosPromise<DictTypeVO> {
 // 新增字典类型
 export function addType(data: DictTypeForm) {
   return request({
-    url: '/system/dict/type',
+    url: '/dict/add',
     method: 'post',
     data: data
   });
@@ -31,7 +31,7 @@ export function addType(data: DictTypeForm) {
 // 修改字典类型
 export function updateType(data: DictTypeForm) {
   return request({
-    url: '/system/dict/type',
+    url: '/dict/type',
     method: 'put',
     data: data
   });

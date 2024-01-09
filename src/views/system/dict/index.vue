@@ -158,6 +158,7 @@ const { queryParams, form, rules } = toRefs(data);
 const getList = () => {
   loading.value = true;
   listType(proxy?.addDateRange(queryParams.value, dateRange.value)).then(res => {
+    console.log("res",res)
     typeList.value = res.rows;
     total.value = res.total;
     loading.value = false;
