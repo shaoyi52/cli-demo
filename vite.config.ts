@@ -5,10 +5,6 @@ import createPlugins from './vite/plugins';
 import path from 'path';
 export default defineConfig(({ mode, command }: ConfigEnv): UserConfig => {
   const env = loadEnv(mode, process.cwd());
-  console.log('defineConfig01', env);
-  const ar = function (arr) {
-    console.log('ar', arr);
-  };
   return {
     // 部署生产环境和开发环境下的URL。
     // 默认情况下，vite 会假设你的应用是被部署在一个域名的根路径上
@@ -133,8 +129,14 @@ export default defineConfig(({ mode, command }: ConfigEnv): UserConfig => {
         'element-plus/es/components/tab-pane/style/css',
 
         '@/../lib/vform/designer.umd.js'
-
       ]
+    },
+    build: {
+      /* 其他build生产打包配置省略 */
+      //...
+      commonjsOptions: {
+        include: /node_modules|lib/ //这里记得把lib目录加进来，否则生产打包会报错！！
+      }
     }
   };
 });
