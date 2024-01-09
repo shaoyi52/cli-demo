@@ -1,4 +1,4 @@
-var express = require('express');
+﻿var express = require('express');
 var router = express.Router();
 const { oauth, tool, db, log } = require('../../common/tool/_require');
 
@@ -40,7 +40,7 @@ router.use('', async function (req, res, next) {
     list
   };
 
-  res.send(tool.toJson(result, '', 1000));
+  res.send(tool.toJson(result, '成功', 1000));
 });
 
 module.exports = router;
