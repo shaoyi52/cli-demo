@@ -10,21 +10,12 @@ const clientId = import.meta.env.VITE_APP_CLIENT_ID;
  * @param data {LoginData}
  * @returns
  */
-//export function login(data: LoginData): AxiosPromise<LoginResult> {
-export function login(data: LoginData) {
+export function login(data: LoginData): AxiosPromise<LoginResult> {
   const params = {
     ...data,
     clientId: data.clientId || clientId,
     grantType: data.grantType || 'password'
   };
-  return new Promise((resolve) => {
-    return resolve({
-      data: { access_token: 'tssdsdf855211588' },
-      status: 200,
-      statusText: 'sucess',
-      headers: {}
-    });
-  });
   return request({
     url: '/auth/login',
     headers: {

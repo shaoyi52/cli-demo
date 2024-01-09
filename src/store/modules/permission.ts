@@ -30,8 +30,7 @@ export const usePermissionStore = defineStore('permission', () => {
   const setSidebarRouters = (routes: RouteOption[]): void => {
     sidebarRouters.value = routes;
   };
-  //const generateRoutes = async (): Promise<RouteOption[]> => {
-  const generateRoutes = async () => {
+  const generateRoutes = async (): Promise<RouteOption[]> => {
     const res = await getRouters();
     const { data } = res;
     const sdata = JSON.parse(JSON.stringify(data));

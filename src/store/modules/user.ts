@@ -19,9 +19,10 @@ export const useUserStore = defineStore('user', () => {
    * @param userInfo
    * @returns
    */
-  // const login = async (userInfo: LoginData): Promise<void> => {
-  const login = async (userInfo: LoginData) => {
-    const [err, res] = await to(loginApi(userInfo));
+  const login = async (userInfo: LoginData): Promise<void> => {
+    //const [err, res] = await to(loginApi(userInfo));
+    const err = '',
+      res = { data: { access_token: 'accesstttsssd' } };
     if (res) {
       const data = res.data;
       setToken(data.access_token);
@@ -33,7 +34,70 @@ export const useUserStore = defineStore('user', () => {
 
   // 获取用户信息
   const getInfo = async (): Promise<void> => {
-    const [err, res] = await to(getUserInfo());
+    //const [err, res] = await to(getUserInfo());
+    const err = null;
+    const res = {
+      data: {
+        user: {
+          userId: 1,
+          tenantId: '000000',
+          deptId: 103,
+          userName: 'admin',
+          nickName: '疯狂的狮子Li',
+          userType: 'sys_user',
+          email: 'crazyLionLi@163.com',
+          phonenumber: '15888888888',
+          sex: '0',
+          avatar: '',
+          status: '0',
+          loginIp: '113.89.233.66',
+          loginDate: '2024-01-08 16:20:12',
+          remark: '管理员',
+          createTime: '2023-12-08 10:55:01',
+          dept: {
+            deptId: 103,
+            parentId: 101,
+            parentName: '',
+            ancestors: '0,100,101',
+            deptName: '研发部门',
+            orderNum: 1,
+            leader: '1',
+            //leaderName: '',
+            phone: '',
+            email: 'xxx@qq.com',
+            status: '0',
+            createTime: '',
+            id: '',
+            children: [],
+            delFlag: '',
+            menuId: ''
+          },
+          roles: [
+            {
+              roleId: 1,
+              roleName: '超级管理员',
+              roleKey: 'superadmin',
+              roleSort: 1,
+              dataScope: '1',
+              menuCheckStrictly: false,
+              deptCheckStrictly: false,
+              status: '0',
+              remark: '管理员',
+              createTime: '',
+              flag: false,
+              delFlag: '0',
+              admin: true,
+              superAdmin: true
+            }
+          ],
+          roleIds: null,
+          postIds: null,
+          roleId: 1
+        },
+        permissions: ['*:*:*'],
+        roles: ['superadmin']
+      }
+    };
     if (res) {
       const data = res.data;
       const user = data.user;
