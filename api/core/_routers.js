@@ -12,6 +12,10 @@ const questionDel = require('../routes/questions/_del.js');
 const dictList = require('../routes/dict/_list.js');
 const dictAdd = require('../routes/dict/_add.js');
 const dictDel = require('../routes/dict/_del.js');
+
+const dictInfoList = require('../routes/dictInfo/_list.js');
+const dictInfoAdd = require('../routes/dictInfo/_add.js');
+const dictInfoDel = require('../routes/dictInfo/_del.js');
 let routes = [];
 
 routes.push({ path: '', app: index });
@@ -28,6 +32,10 @@ routes.push({ path: '/question/del', app: questionDel });
 routes.push({ path: '/dict/list', app: dictList });
 routes.push({ path: '/dict/add', app: dictAdd });
 routes.push({ path: '/dict/del', app: dictDel });
+
+routes.push({ path: '/dict_info/list', app: dictInfoList });
+routes.push({ path: '/dict_info/add', app: dictInfoAdd });
+routes.push({ path: '/dict_info/del', app: dictInfoDel });
 
 function routers(app) {
   routes.forEach((route) => {
