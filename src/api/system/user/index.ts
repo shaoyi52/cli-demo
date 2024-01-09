@@ -22,6 +22,7 @@ export const listUser = (query: UserQuery): AxiosPromise<UserVO[]> => {
  * @param userId
  */
 export const getUser = (userId?: string | number): AxiosPromise<UserInfoVO> => {
+  
   return request({
     url: '/system/user/' + parseStrEmpty(userId),
     method: 'get'

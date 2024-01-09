@@ -1,9 +1,11 @@
 #app {
   .main-container {
     height: 100%;
-    transition: margin-left 0.28s;
-    margin-left: $base-sidebar-width;
+    transition: margin-left 0.28s;    
     position: relative;
+  }
+  .app-wrapper>.main-container{
+    margin-left: $base-sidebar-width;
   }
 
   .sidebarHide {

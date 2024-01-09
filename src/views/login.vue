@@ -2,12 +2,12 @@
   <div class="login">
     <el-form ref="loginRef" :model="loginForm" :rules="loginRules" class="login-form">
       <h3 class="title">RuoYi-Vue-Plus多租户管理系统</h3>
-      <el-form-item prop="tenantId" v-if="tenantEnabled">
+      <!-- <el-form-item prop="tenantId" v-if="tenantEnabled">
         <el-select v-model="loginForm.tenantId" filterable placeholder="请选择/输入公司名称" style="width: 100%">
           <el-option v-for="item in tenantList" :key="item.tenantId" :label="item.companyName" :value="item.tenantId"></el-option>
           <template #prefix><svg-icon icon-class="company" class="el-input__icon input-icon" /></template>
         </el-select>
-      </el-form-item>
+      </el-form-item> -->
       <el-form-item prop="username">
         <el-input v-model="loginForm.username" type="text" size="large" auto-complete="off" placeholder="账号">
           <template #prefix><svg-icon icon-class="user" class="el-input__icon input-icon" /></template>
@@ -18,14 +18,14 @@
           <template #prefix><svg-icon icon-class="password" class="el-input__icon input-icon" /></template>
         </el-input>
       </el-form-item>
-      <el-form-item prop="code" v-if="captchaEnabled">
+      <!-- <el-form-item prop="code" v-if="captchaEnabled">
         <el-input v-model="loginForm.code" size="large" auto-complete="off" placeholder="验证码" style="width: 63%" @keyup.enter="handleLogin">
           <template #prefix><svg-icon icon-class="validCode" class="el-input__icon input-icon" /></template>
         </el-input>
         <div class="login-code">
           <img :src="codeUrl" @click="getCode" class="login-code-img" />
         </div>
-      </el-form-item>
+      </el-form-item> -->
       <el-checkbox v-model="loginForm.rememberMe" style="margin:0px 0px 25px 0px;">记住密码</el-checkbox>
       <el-form-item style="float: right;">
         <el-button circle title="微信登录" @click="doSocialLogin('wechat')">
@@ -203,9 +203,9 @@ const doSocialLogin = (type: string) => {
 
 
 onMounted(() => {
-  getCode();
+  /* getCode();
   initTenantList();
-  getLoginData();
+  getLoginData(); */
 });
 </script>
 

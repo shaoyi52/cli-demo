@@ -88,7 +88,6 @@ export default defineConfig(({ mode, command }: ConfigEnv): UserConfig => {
         'vue-i18n',
         '@vueup/vue-quill',
         '@iconify/iconify',
-
         'element-plus/es/components/form/style/css',
         'element-plus/es/components/form-item/style/css',
         'element-plus/es/components/button/style/css',
@@ -131,7 +130,10 @@ export default defineConfig(({ mode, command }: ConfigEnv): UserConfig => {
         'element-plus/es/components/transfer/style/css',
         'element-plus/es/components/tabs/style/css',
         'element-plus/es/components/image/style/css',
-        'element-plus/es/components/tab-pane/style/css'
+        'element-plus/es/components/tab-pane/style/css',
+
+        '@/../lib/vform/designer.umd.js'
+
       ]
     }
   };
