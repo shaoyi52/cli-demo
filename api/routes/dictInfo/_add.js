@@ -15,8 +15,12 @@ router.use('', async function (req, res, next) {
   let dictValue = tool.getParams(req, 'dictValue');
   let isDefault = tool.getParams(req, 'isDefault');
   let dictType = tool.getParams(req, 'dictType');
+  let dictId = tool.getParams(req, 'dictId');
   let remark = tool.getParams(req, 'remark');
-
+  if (!dictId) {
+    res.send(tool.toJson(null, '字典类型ID不能为空', 1002));
+    return;
+  }
   if (!dictLabel) {
     res.send(tool.toJson(null, '名称不能为空', 1002));
     return;

@@ -10,21 +10,24 @@ router.use('', async function (req, res, next) {
   let page = tool.getParams(req, 'page') || 1;
   let limit = tool.getParams(req, 'limit') || 10;
 
-  let id = tool.getParams(req, 'id');
+  let dictType = tool.getParams(req, 'dictType');
+  let dictId = tool.getParams(req, 'dictId');
 
   let list,
     count,
     sqlArr = [],
     sql;
-  let searchSqlStart = `select * from dict  `;
+  let searchSqlStart = `select * from dict_info  `;
 
   let searchSqlEnd = `limit ${(page - 1) * limit} , ${limit}`;
-  if (id) {
-    sqlArr.push(`id=${id}`);
-  }
 
+  if (dictId) {
+    sqlArr.push(`dictId=${dictId}`);
+  } else if (dictType) {
+    sqlArr.push(`dictType=${dictType}`);
+  }
+  sql = sqlArr.join(' and ');
   if (sql) {
-    sql = sqlArr.join(' and ');
     sql = 'where ' + sql;
   }
   try {
