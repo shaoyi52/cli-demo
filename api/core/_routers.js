@@ -17,9 +17,9 @@ const dictInfoList = require('../routes/dictInfo/_list.js');
 const dictInfoAdd = require('../routes/dictInfo/_add.js');
 const dictInfoDel = require('../routes/dictInfo/_del.js');
 
-const dictInfoList = require('../routes/view/_list.js');
-const dictInfoAdd = require('../routes/view/_add.js');
-const dictInfoDel = require('../routes/view/_del.js');
+const viewList = require('../routes/view/_list.js');
+const viewAdd = require('../routes/view/_add.js');
+const viewDel = require('../routes/view/_del.js');
 let routes = [];
 
 routes.push({ path: '', app: index });
@@ -41,9 +41,9 @@ routes.push({ path: '/dict_info/list', app: dictInfoList });
 routes.push({ path: '/dict_info/add', app: dictInfoAdd });
 routes.push({ path: '/dict_info/del', app: dictInfoDel });
 
-routes.push({ path: '/view/list', app: dictInfoList });
-routes.push({ path: '/view/add', app: dictInfoAdd });
-routes.push({ path: '/view/del', app: dictInfoDel });
+routes.push({ path: '/view/list', app: viewList });
+routes.push({ path: '/view/add', app: viewAdd });
+routes.push({ path: '/view/del', app: viewDel });
 
 function routers(app) {
   routes.forEach((route) => {
