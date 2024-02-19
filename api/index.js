@@ -14,6 +14,8 @@ const routers = require('./core/_routers');
 let compress = require('compression'); //gzip压缩
 require('./common/prototype/_index');
 let cors = require('cors');
+let bodyParser = require('body-parser');
+app.use(bodyParser.json({ limit: '10mb', extended: true }));
 app.use(compress());
 //const routeEach = require("./core/_routeEach");
 //const hostArr = require("./common/host"); //允许访问的域名
@@ -35,7 +37,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 // 字段不符合就就不允许
 app.use((req, res, next) => {
-  console.log(tool.getParams);
   let limit = tool.getParams(req, 'limit');
   if (limit && limit > 200) {
     res.send(tool.toJson('', 'limit参数不能大于200', 1002));

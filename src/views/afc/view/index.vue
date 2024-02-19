@@ -4,11 +4,11 @@
       <div class="mb-[10px]" v-show="showSearch">
         <el-card shadow="hover">
           <el-form :model="queryParams" ref="queryFormRef" :inline="true" label-width="68px">
-            <el-form-item label="字典名称" prop="dictName">
-              <el-input v-model="queryParams.dictName" placeholder="请输入字典名称" clearable style="width: 240px" @keyup.enter="handleQuery" />
+            <el-form-item label="模型名称" prop="dictName">
+              <el-input v-model="queryParams.dictName" placeholder="请输入模型名称" clearable style="width: 240px" @keyup.enter="handleQuery" />
             </el-form-item>
-            <el-form-item label="字典类型" prop="dictType">
-              <el-input v-model="queryParams.dictType" placeholder="请输入字典类型" clearable style="width: 240px" @keyup.enter="handleQuery" />
+            <el-form-item label="中文名称" prop="dictType">
+              <el-input v-model="queryParams.dictType" placeholder="请输入中文名称" clearable style="width: 240px" @keyup.enter="handleQuery" />
             </el-form-item>
             <el-form-item label="创建时间" style="width: 308px">
               <el-date-picker
@@ -55,16 +55,16 @@
 
       <el-table v-loading="loading" :data="typeList" @selection-change="handleSelectionChange">
         <el-table-column type="selection" width="55" align="center" />
-        <el-table-column label="字典编号" align="center" prop="dictId" v-if="false" />
-        <el-table-column label="字典名称" align="center" prop="dictName" :show-overflow-tooltip="true" />
-        <el-table-column label="字典类型" align="center" :show-overflow-tooltip="true">
+        <el-table-column label="模型名称" align="center" prop="modelName" v-if="false" />
+        <el-table-column label="英文名称" align="center" prop="name" :show-overflow-tooltip="true" />
+        <el-table-column label="中文名称" align="center" :show-overflow-tooltip="true">
           <template #default="scope">
-            <router-link :to="'/system/dict-data/index/' + scope.row.dictId" class="link-type">
-              <span>{{ scope.row.dictType }}</span>
-            </router-link>
+            <span @click="toDesgin(scope.row)">{{ scope.row.title }}</span>
           </template>
         </el-table-column>
         <el-table-column label="备注" align="center" prop="remark" :show-overflow-tooltip="true" />
+        <el-table-column label="资源类型" align="center" prop="type" :show-overflow-tooltip="true" />
+        <el-table-column label="有效" align="center" prop="isValid" :show-overflow-tooltip="true" />
         <el-table-column label="创建时间" align="center" prop="createTime" width="180">
           <template #default="scope">
             <span>{{ parseTime(scope.row.createTime) }}</span>
@@ -87,11 +87,14 @@
     <!-- 添加或修改参数配置对话框 -->
     <el-dialog :title="dialog.title" v-model="dialog.visible" width="500px" append-to-body>
       <el-form ref="dictFormRef" :model="form" :rules="rules" label-width="80px">
-        <el-form-item label="字典名称" prop="dictName">
-          <el-input v-model="form.dictName" placeholder="请输入字典名称" />
+        <el-form-item label="模型名称" prop="modelName">
+          <el-input v-model="form.modelName" placeholder="请输入模型名称" />
         </el-form-item>
-        <el-form-item label="字典类型" prop="dictType">
-          <el-input v-model="form.dictType" placeholder="请输入字典类型" />
+        <el-form-item label="英文名称" prop="name">
+          <el-input v-model="form.name" placeholder="请输入英文名称" />
+        </el-form-item>
+        <el-form-item label="中文名称" prop="title">
+          <el-input v-model="form.title" placeholder="请输入中文名称" />
         </el-form-item>
         <el-form-item label="备注" prop="remark">
           <el-input v-model="form.remark" type="textarea" placeholder="请输入内容"></el-input>
@@ -108,9 +111,9 @@
 </template>
 <script setup name="view" lang="ts">
 import useDictStore from '@/store/modules/dict'
-import {  getType, delType, addType, updateType, refreshCache } from "@/api/system/dict/type";
-import { list} from "@/api/system/view";
-import { DictTypeForm, DictTypeQuery, DictTypeVO } from "@/api/system/dict/type/types";
+import { list,updateView,addView} from "@/api/system/view";
+import { ViewTypeForm, DictTypeQuery, DictTypeVO } from "@/api/system/view/types";
+const router = useRouter();
 
 const { proxy } = getCurrentInstance() as ComponentInternalInstance;
 
@@ -132,13 +135,17 @@ const dialog = reactive<DialogOption>({
   title: ''
 });
 
-const initFormData: DictTypeForm = {
-  dictId: undefined,
-  dictName: '',
-  dictType: '',
-  remark: ''
+const initFormData: ViewTypeForm = {
+  "modelName": "",
+  "name": "",
+  "title": "",
+  "type": "",
+  "isValid": true,
+  "componentCfg": null,
+  "customCfg": null,
+  "remark": ""
 }
-const data = reactive<PageData<DictTypeForm, DictTypeQuery>>({
+const data = reactive<PageData<ViewTypeForm, DictTypeQuery>>({
   form: { ...initFormData },
   queryParams: {
     pageNum: 1,
@@ -163,6 +170,15 @@ const getList = () => {
     total.value = res.total;
     loading.value = false;
   });
+}
+
+const toDesgin=(row)=>{
+  if(row.componentCfg){
+    let {widgetList,formConfig}=JSON.parse(JSON.parse(row.componentCfg));
+    localStorage.setItem('form__config__backup',JSON.stringify(formConfig))
+    localStorage.setItem('widget__list__backup',JSON.stringify(widgetList))
+  }
+  router.push({ path: '/afc/designer/index?id=' + row.id })
 }
 /** 取消按钮 */
 const cancel = () => {
@@ -193,24 +209,25 @@ const handleAdd = () => {
 }
 /** 多选框选中数据 */
 const handleSelectionChange = (selection: DictTypeVO[]) => {
-  ids.value = selection.map(item => item.dictId);
+  ids.value = selection.map(item => item.id);
   single.value = selection.length != 1;
   multiple.value = !selection.length;
 }
 /** 修改按钮操作 */
-const handleUpdate = async (row?: DictTypeVO) => {
+const handleUpdate = async (row) => {
   reset();
-  const dictId = row?.dictId || ids.value[0];
-  const res = await getType(dictId);
-  Object.assign(form.value, res.data);
+  const id = row?.id || ids.value[0];
+  //const res = await getType(dictId);
+  Object.assign(form.value, row);
   dialog.visible = true;
-  dialog.title = "修改字典类型";
+  dialog.title = "修改视图资源";
 }
 /** 提交按钮 */
 const submitForm = () => {
   dictFormRef.value?.validate(async (valid: boolean) => {
     if (valid) {
-      form.value.dictId ? await updateType(form.value) : await addType(form.value);
+      console.log('form',form.value)
+      form.value.id ? await updateView(form.value) : await addView(form.value);
       proxy?.$modal.msgSuccess("操作成功");
       dialog.visible = false;
       getList();

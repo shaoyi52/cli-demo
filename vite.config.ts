@@ -26,7 +26,7 @@ export default defineConfig(({ mode, command }: ConfigEnv): UserConfig => {
       open: true,
       proxy: {
         [env.VITE_APP_BASE_API]: {
-          target: 'https://findinfo.love', //'http://localhost:8080'
+          target: 'http://localhost:3000', //'http://localhost:8080'
           changeOrigin: true,
           ws: true,
           rewrite: (path) => {

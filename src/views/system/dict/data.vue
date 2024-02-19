@@ -49,8 +49,16 @@
         <el-table-column label="字典编码" align="center" prop="dictCode" v-if="false" />
         <el-table-column label="字典标签" align="center" prop="dictLabel">
           <template #default="scope">
-            <span v-if="(scope.row.listClass == '' || scope.row.listClass == 'default') && (scope.row.cssClass == '' || scope.row.cssClass == null)">{{ scope.row.dictLabel }}</span>
-            <el-tag v-else :type="scope.row.listClass == 'primary' ? '' : scope.row.listClass" :class="scope.row.cssClass">{{ scope.row.dictLabel }}</el-tag>
+            <span
+              v-if="(scope.row.listClass == '' || scope.row.listClass == 'default') && (scope.row.cssClass == '' || scope.row.cssClass == null)"
+              >{{ scope.row.dictLabel }}</span
+            >
+            <el-tag
+              v-else
+              :type="scope.row.listClass == 'primary' ? '' : scope.row.listClass"
+              :class="scope.row.cssClass"
+              >{{ scope.row.dictLabel }}</el-tag
+            >
           </template>
         </el-table-column>
         <el-table-column label="字典键值" align="center" prop="dictValue" />
@@ -246,7 +254,7 @@ const handleSelectionChange = (selection: DictDataVO[]) => {
 /** 修改按钮操作 */
 const handleUpdate = async (row?: DictDataVO) => {
   reset();
-  const dictCode = row?.dictCode || ids.value[0];
+  const dictCode = row?.id || ids.value[0];
   const res = await getData(dictCode);
   Object.assign(form.value, res.data);
   dialog.visible = true;

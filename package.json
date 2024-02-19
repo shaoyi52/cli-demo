@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "lint": "eslint src/**/*.{ts,js,vue} --fix",
     "prepare": "husky install",
-    "prettier": "prettier --write ."
+    "prettier": "prettier --write .",
+    "service": "nodemon api/bin/_www.js"
   },
   "repository": {
     "type": "git",

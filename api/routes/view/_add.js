@@ -8,16 +8,16 @@ const { oauth, tool, db, log } = require('../../common/tool/_require');
  * */
 router.use('', async function (req, res, next) {
   let modelName = tool.getParams(req, 'modelName');
-  let id = tool.getParams(req, 'id');
+  let id = tool.getParams(req, 'id', true);
   let name = tool.getParams(req, 'name');
   let title = tool.getParams(req, 'title');
   let type = tool.getParams(req, 'type');
-  let isValid = tool.getParams(req, 'isValid');
+  let isValid = tool.getParams(req, 'isValid', true);
   let componentCfg = tool.getParams(req, 'componentCfg');
-  let customCfg = tool.getParams(req, 'customCfg');
+  let customCfg = tool.getParams(req, 'customCfg', true);
   let remark = tool.getParams(req, 'remark');
 
-  if (!title) {
+  if (!title && !id) {
     res.send(tool.toJson(null, '名称不能为空', 1002));
     return;
   }
@@ -28,18 +28,20 @@ router.use('', async function (req, res, next) {
     title,
     type,
     isValid,
-    componentCfg,
-    customCfg,
+    componentCfg: componentCfg,
+    customCfg: customCfg,
     remark
   };
   if (id) {
     let columnArr = [];
     try {
       Object.keys(list).forEach((key) => {
-        columnArr.push(`${key} = "${list[key]}"`);
+        if (list[key] || list[key] === '') {
+          columnArr.push(`${key} = '${list[key]}'`);
+        }
       });
       let columnSql = columnArr.join(',');
-      let sql = `UPDATE view SET ${columnSql} WHERE id = ${id}'`;
+      let sql = `UPDATE view SET ${columnSql} WHERE id = ${id}`;
       await db.query(sql);
     } catch (err) {
       res.send(tool.toJson(null, `你的视图更新失败，失败原因：${err}`, 1002));
@@ -49,7 +51,7 @@ router.use('', async function (req, res, next) {
   } else {
     try {
       let sql = `INSERT INTO view(modelName,name,title,type,isValid,componentCfg,customCfg,remark) 
-      VALUES ("${list.modelName}","${list.name}","${list.title}","${list.type}","${list.isValid}","${list.componentCfg}","${list.customCfg}","${list.remark}")`;
+      VALUES ("${list.modelName}","${list.name}","${list.title}","${list.type}",${list.isValid},'${list.componentCfg}',"${list.customCfg}","${list.remark}")`;
       await db.query(sql);
     } catch (err) {
       res.send(tool.toJson(null, `你的视图添加失败，失败原因：${err}`, 1002));

@@ -4,7 +4,7 @@ import { DictDataForm, DictDataQuery, DictDataVO } from './types';
 // 根据字典类型查询字典数据信息
 export function getDicts(dictType: string): AxiosPromise<DictDataVO[]> {
   return request({
-    url: '/system/dict/data/type/' + dictType,
+    url: '/dict/type/' + dictType,
     method: 'get'
   });
 }
@@ -12,7 +12,7 @@ export function getDicts(dictType: string): AxiosPromise<DictDataVO[]> {
 // 查询字典数据列表
 export function listData(query: DictDataQuery): AxiosPromise<DictDataVO[]> {
   return request({
-    url: '/system/dict/data/list',
+    url: '/dict/data/list',
     method: 'get',
     params: query
   });
@@ -21,7 +21,7 @@ export function listData(query: DictDataQuery): AxiosPromise<DictDataVO[]> {
 // 查询字典数据详细
 export function getData(dictCode: string | number): AxiosPromise<DictDataVO> {
   return request({
-    url: '/system/dict/data/' + dictCode,
+    url: '/dict/data/type/' + dictCode,
     method: 'get'
   });
 }
@@ -29,7 +29,7 @@ export function getData(dictCode: string | number): AxiosPromise<DictDataVO> {
 // 新增字典数据
 export function addData(data: DictDataForm) {
   return request({
-    url: '/system/dict/data',
+    url: '/dict/data/add',
     method: 'post',
     data: data
   });

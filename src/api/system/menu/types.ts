@@ -32,7 +32,7 @@ export interface MenuVO extends BaseEntity {
   parentName: string;
   parentId: string | number;
   children: MenuVO[];
-  menuId: string | number;
+  id: string | number;
   menuName: string;
   orderNum: number;
   path: string;

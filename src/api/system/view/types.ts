@@ -5,14 +5,19 @@ export interface DictTypeVO extends BaseEntity {
   remark: string;
 }
 
-export interface DictTypeForm {
-  dictId: number | string | undefined;
-  dictName: string;
-  dictType: string;
-  remark: string;
+export interface ViewTypeForm {
+  modelName?: string | undefined;
+  name?: string | undefined;
+  title?: string | undefined;
+  type?: string | undefined;
+  isValid?: boolean;
+  componentCfg?: string | undefined | null;
+  customCfg?: string | undefined | null;
+  remark?: string | undefined;
 }
 
 export interface DictTypeQuery extends PageQuery {
-  dictName: string;
-  dictType: string;
+  id?: number | null;
+  dictName?: string;
+  dictType?: string;
 }

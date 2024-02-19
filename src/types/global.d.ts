@@ -84,8 +84,8 @@ declare global {
    * 分页查询参数
    */
   declare interface PageQuery {
-    pageNum: number;
-    pageSize: number;
+    pageNum?: number;
+    pageSize?: number;
   }
 }
 export {};

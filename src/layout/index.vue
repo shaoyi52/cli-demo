@@ -61,7 +61,7 @@ const settingRef = ref(Settings);
 
 onMounted(() => {
   nextTick(() => {
-    navbarRef.value.initTenantList();
+    //navbarRef.value.initTenantList();
   })
 })
 

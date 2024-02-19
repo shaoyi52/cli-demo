@@ -5,7 +5,7 @@ import { MenuQuery, MenuVO, MenuForm, MenuTreeOption, RoleMenuTree } from './typ
 // 查询菜单列表
 export const listMenu = (query?: MenuQuery): AxiosPromise<MenuVO[]> => {
   return request({
-    url: '/system/menu/list',
+    url: '/menu/list',
     method: 'get',
     params: query
   });
@@ -14,7 +14,7 @@ export const listMenu = (query?: MenuQuery): AxiosPromise<MenuVO[]> => {
 // 查询菜单详细
 export const getMenu = (menuId: string | number): AxiosPromise<MenuVO> => {
   return request({
-    url: '/system/menu/' + menuId,
+    url: '/menu/list?id=' + menuId,
     method: 'get'
   });
 };
@@ -46,7 +46,7 @@ export const tenantPackageMenuTreeselect = (packageId: string | number): AxiosPr
 // 新增菜单
 export const addMenu = (data: MenuForm) => {
   return request({
-    url: '/system/menu',
+    url: '/menu/add',
     method: 'post',
     data: data
   });

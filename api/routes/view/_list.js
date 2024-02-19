@@ -30,6 +30,9 @@ router.use('', async function (req, res, next) {
   if (sql) {
     sql = 'where ' + sql;
   }
+
+  let result = {};
+
   try {
     list = await db.query(`${searchSqlStart} ${sql} ${searchSqlEnd}`);
     count = (await db.query(`select count(*) from view ${sql}`))[0]['count(*)'];
@@ -37,11 +40,14 @@ router.use('', async function (req, res, next) {
     res.send(tool.toJson(null, '数据出错', 1002));
     return;
   }
-
-  let result = {
-    total: count,
-    rows: list
-  };
+  if (id) {
+    result = list.length ? list[0] : null;
+  } else {
+    result = {
+      total: count,
+      rows: list
+    };
+  }
 
   res.send(tool.toJson({ ...result }, '成功', 1000));
 });

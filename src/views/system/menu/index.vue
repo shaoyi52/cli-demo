@@ -85,8 +85,8 @@
               <el-tree-select
                 v-model="form.parentId"
                 :data="menuOptions"
-                :props="{ value: 'menuId', label: 'menuName', children: 'children' }"
-                value-key="menuId"
+                :props="{ value: 'id', label: 'menuName', children: 'children' }"
+                value-key="id"
                 placeholder="选择上级菜单"
                 check-strictly
               />
@@ -320,7 +320,8 @@ const { queryParams, form, rules } = toRefs<PageData<MenuForm, MenuQuery>>(data)
 const getList = async () => {
   loading.value = true
   const res = await listMenu(queryParams.value);
-  const data = proxy?.handleTree<MenuVO>(res.data, "menuId")
+  console.log("res",res)
+  const data = proxy?.handleTree<MenuVO>(res.rows, "id")
   if (data) {
     menuList.value = data
   }
@@ -330,8 +331,8 @@ const getList = async () => {
 const getTreeselect = async () => {
   menuOptions.value = []
   const response = await listMenu();
-  const menu: MenuOptionsType = { menuId: 0, menuName: "主类目", children: [] }
-  menu.children = proxy?.handleTree<MenuOptionsType>(response.data, "menuId")
+  const menu: MenuOptionsType = { id: 0, menuName: "主类目", children: [] }
+  menu.children = proxy?.handleTree<MenuOptionsType>(response.rows, "id")
   menuOptions.value.push(menu)
 }
 /** 取消按钮 */
@@ -358,7 +359,7 @@ const resetQuery = () => {
 const handleAdd = (row?: MenuVO) => {
   reset();
   getTreeselect();
-  row && row.menuId ? form.value.parentId = row.menuId : form.value.parentId = 0;
+  row && row.id ? form.value.parentId = row.id : form.value.parentId = 0;
   dialog.visible = true;
   dialog.title = "添加菜单";
 }
@@ -378,9 +379,9 @@ const toggleExpandAll = (data: MenuVO[], status: boolean) => {
 const handleUpdate = async (row: MenuVO) => {
   reset();
   await getTreeselect();
-  if (row.menuId) {
-    const { data } = await getMenu(row.menuId);
-    form.value = data;
+  if (row.id) {
+    const res = await getMenu(row.id);
+    form.value = res;
   }
   dialog.visible = true;
   dialog.title = "修改菜单";

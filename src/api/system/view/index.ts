@@ -1,5 +1,5 @@
 import request from '@/utils/request';
-import { DictTypeForm, DictTypeVO, DictTypeQuery } from './types';
+import { ViewTypeForm, DictTypeVO, DictTypeQuery } from './types';
 import { AxiosPromise } from 'axios';
 
 // 查询视图列表
@@ -14,25 +14,25 @@ export function list(query: DictTypeQuery): AxiosPromise<DictTypeVO[]> {
 // 查询字典类型详细
 export function getType(dictId: number | string): AxiosPromise<DictTypeVO> {
   return request({
-    url: '/system/dict/type/' + dictId,
+    url: '/dict/type/' + dictId,
     method: 'get'
   });
 }
 
 // 新增字典类型
-export function addType(data: DictTypeForm) {
+export function addView(data: ViewTypeForm) {
   return request({
-    url: '/dict/add',
+    url: '/view/add',
     method: 'post',
     data: data
   });
 }
 
 // 修改字典类型
-export function updateType(data: DictTypeForm) {
+export function updateView(data: ViewTypeForm) {
   return request({
-    url: '/dict/type',
-    method: 'put',
+    url: '/view/add',
+    method: 'post',
     data: data
   });
 }

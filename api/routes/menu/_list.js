@@ -10,39 +10,44 @@ router.use('', async function (req, res, next) {
   let page = tool.getParams(req, 'page') || 1;
   let limit = tool.getParams(req, 'limit') || 10;
 
-  let dictType = tool.getParams(req, 'dictType');
-  let dictId = tool.getParams(req, 'dictId');
+  let title = tool.getParams(req, 'title');
+  let id = tool.getParams(req, 'id');
 
   let list,
     count,
     sqlArr = [],
     sql;
-  let searchSqlStart = `select * from dict_info  `;
+  let searchSqlStart = `select * from menu  `;
 
   let searchSqlEnd = `limit ${(page - 1) * limit} , ${limit}`;
 
-  if (dictId) {
-    sqlArr.push(`dictId=${dictId}`);
-  } else if (dictType) {
-    sqlArr.push(`dictType='${dictType}'`);
+  if (title) {
+    sqlArr.push(`title=${title}`);
+  } else if (id) {
+    sqlArr.push(`id=${id}`);
   }
   sql = sqlArr.join(' and ');
   if (sql) {
     sql = 'where ' + sql;
   }
+
+  let result = {};
+
   try {
-    console.log('dic data list', `${searchSqlStart} ${sql} ${searchSqlEnd}`);
     list = await db.query(`${searchSqlStart} ${sql} ${searchSqlEnd}`);
-    count = (await db.query(`select count(*) from dict_info ${sql}`))[0]['count(*)'];
+    count = (await db.query(`select count(*) from menu ${sql}`))[0]['count(*)'];
   } catch (err) {
     res.send(tool.toJson(null, '数据出错', 1002));
     return;
   }
-
-  let result = {
-    total: count,
-    rows: list
-  };
+  if (id) {
+    result = list.length ? list[0] : null;
+  } else {
+    result = {
+      total: count,
+      rows: list
+    };
+  }
 
   res.send(tool.toJson({ ...result }, '成功', 1000));
 });
