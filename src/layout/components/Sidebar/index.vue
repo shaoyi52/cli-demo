@@ -20,20 +20,20 @@
   </div>
 </template>
 
-<script setup lang="ts">
-import Logo from './Logo.vue'
-import SidebarItem from './SidebarItem.vue'
-import variables from '@/assets/styles/variables.module.scss'
-import useAppStore from '@/store/modules/app'
-import useSettingsStore from '@/store/modules/settings'
-import usePermissionStore from '@/store/modules/permission'
+<script setup lang="ts" name="SideBar">
+import Logo from './Logo.vue';
+import SidebarItem from './SidebarItem.vue';
+import variables from '@/assets/styles/variables.module.scss';
+import useAppStore from '@/store/modules/app';
+import useSettingsStore from '@/store/modules/settings';
+import usePermissionStore from '@/store/modules/permission';
 import { RouteOption } from "vue-router";
 const { proxy } = getCurrentInstance() as ComponentInternalInstance;
 
 const route = useRoute();
-const appStore = useAppStore()
-const settingsStore = useSettingsStore()
-const permissionStore = usePermissionStore()
+const appStore = useAppStore();
+const settingsStore = useSettingsStore();
+const permissionStore = usePermissionStore();
 
 const sidebarRouters =  computed<RouteOption[]>(() => permissionStore.sidebarRouters);
 const showLogo = computed(() => settingsStore.sidebarLogo);
@@ -48,7 +48,7 @@ const activeMenu = computed(() => {
         return meta.activeMenu;
     }
     return path;
-})
+});
 
 const bgColor = computed(() => sideTheme.value === 'theme-dark' ? variables.menuBackground : variables.menuLightBackground);
 const textColor = computed(() => sideTheme.value === 'theme-dark' ? variables.menuColor : variables.menuLightColor);

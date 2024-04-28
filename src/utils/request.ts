@@ -1,23 +1,24 @@
-import axios, { AxiosResponse, InternalAxiosRequestConfig } from 'axios';
+import type { AxiosResponse, InternalAxiosRequestConfig } from 'axios';
+import axios from 'axios';
 import { useUserStore } from '@/store/modules/user';
 import { getToken } from '@/utils/auth';
 import { tansParams, blobValidate } from '@/utils/ruoyi';
 import cache from '@/plugins/cache';
 import { HttpStatus } from '@/enums/RespEnum';
 import { errorCode } from '@/utils/errorCode';
-import { LoadingInstance } from 'element-plus/es/components/loading/src/loading';
+import type { LoadingInstance } from 'element-plus/es/components/loading/src/loading';
 import FileSaver from 'file-saver';
 import { getLanguage } from '@/lang';
 import { encryptBase64, encryptWithAes, generateAesKey } from '@/utils/crypto';
 import { encrypt } from '@/utils/jsencrypt';
-
+import * as services from "@/services/index";
 let downloadLoadingInstance: LoadingInstance;
 // 是否显示重新登录
 export const isRelogin = { show: false };
 export const globalHeaders = () => {
   return {
     Authorization: 'Bearer ' + getToken(),
-    clientid: import.meta.env.VITE_APP_CLIENT_ID
+    clientid: import.meta.env.VITE_APP_CLIENT_ID,
   };
 };
 
@@ -26,12 +27,12 @@ axios.defaults.headers['clientid'] = import.meta.env.VITE_APP_CLIENT_ID;
 // 创建 axios 实例
 const service = axios.create({
   baseURL: import.meta.env.VITE_APP_BASE_API,
-  timeout: 50000
+  timeout: 50000,
 });
 
 // 请求拦截器
 service.interceptors.request.use(
-  (config: InternalAxiosRequestConfig) => {
+  async (config: InternalAxiosRequestConfig) => {
     // 对应国际化资源文件后缀
     config.headers['Content-Language'] = getLanguage();
 
@@ -55,7 +56,7 @@ service.interceptors.request.use(
       const requestObj = {
         url: config.url,
         data: typeof config.data === 'object' ? JSON.stringify(config.data) : config.data,
-        time: new Date().getTime()
+        time: new Date().getTime(),
       };
       const sessionObj = cache.session.getJSON('sessionObj');
       if (sessionObj === undefined || sessionObj === null || sessionObj === '') {
@@ -85,12 +86,29 @@ service.interceptors.request.use(
     if (config.data instanceof FormData) {
       delete config.headers['Content-Type'];
     }
+    console.log('config.url',config.url);
+    console.log('process.env.BASE_URL',import.meta.env.BASE_URL);
+    console.log("services",services);
+    // 使用本地数据render
+    if(config.url?.startsWith('/system')&&import.meta.env.VITE_APP_ENV==='development'){
+      //console.log('import.meta.env',import.meta.env.VITE_APP_ENV==='development');
+      const urlWithoutBase = config.url.replace(service.defaults.baseURL, '');
+      const jsonFileUrl = process.env.BASE_URL + 'static/data/' + urlWithoutBase + '.json'; // 假设本地JSON文件放在static/data目录下
+      try {
+        const response = await fetch(jsonFileUrl);
+        const data = await response.json();
+        return { data };
+      } catch (error) {
+        console.error('Failed to load local JSON:', error);
+        return Promise.reject(error);
+      }
+    }
     return config;
   },
   (error: any) => {
     console.log(error);
     return Promise.reject(error);
-  }
+  },
 );
 
 // 响应拦截器
@@ -111,7 +129,7 @@ service.interceptors.response.use(
         ElMessageBox.confirm('登录状态已过期，您可以继续留在该页面，或者重新登录', '系统提示', {
           confirmButtonText: '重新登录',
           cancelButtonText: '取消',
-          type: 'warning'
+          type: 'warning',
         }).then(() => {
           isRelogin.show = false;
           useUserStore().logout().then(() => {
@@ -147,9 +165,9 @@ service.interceptors.response.use(
     } else if (message.includes('Request failed with status code')) {
       message = '系统接口' + message.substr(message.length - 3) + '异常';
     }
-    ElMessage({ message: message, type: 'error', duration: 5 * 1000 });
+    ElMessage({ message, type: 'error', duration: 5 * 1000 });
     return Promise.reject(error);
-  }
+  },
 );
 // 通用下载方法
 export function download(url: string, params: any, fileName: string) {
@@ -159,10 +177,10 @@ export function download(url: string, params: any, fileName: string) {
       transformRequest: [
         (params: any) => {
           return tansParams(params);
-        }
+        },
       ],
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      responseType: 'blob'
+      responseType: 'blob',
     }).then(async (resp: any) => {
       const isLogin = blobValidate(resp);
       if (isLogin) {

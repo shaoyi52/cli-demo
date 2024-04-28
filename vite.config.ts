@@ -24,6 +24,7 @@ export default defineConfig(({ mode, command }: ConfigEnv): UserConfig => {
       host: '0.0.0.0',
       port: Number(env.VITE_APP_PORT),
       open: true,
+      hmr: true,
       proxy: {
         [env.VITE_APP_BASE_API]: {
           target: 'http://localhost:3000', //'http://localhost:8080'
@@ -32,6 +33,27 @@ export default defineConfig(({ mode, command }: ConfigEnv): UserConfig => {
           rewrite: (path) => {
             console.log(path.replace(new RegExp('^' + env.VITE_APP_BASE_API), env.VITE_APP_BASE_API));
             return path.replace(new RegExp('^' + env.VITE_APP_BASE_API), env.VITE_APP_BASE_API);
+          },
+
+          /**
+           * URL(url,base)
+           * 是一个表示绝对或相对 URL 的 DOMString。
+           * 如果ur1 是相对 URL，则会将 base 用作基准 URL
+           * 如果 ur 是绝对 URL，则无论参数base是否存在，都将被忽略.
+           **/
+          bypass(req, res, options) {
+            const proxyUrl = new URL(options.rewrite(req.url) || '', options.target as string)?.href || '';
+            // req.headers['x-req-proxyUrl'] = proxyUrl; // 设置无效
+            res.setHeader('x-res-proxyUrl', proxyUrl); // 有效
+          }
+        },
+        '/v1beta': {
+          target: 'https://us-west-2.data.tidbcloud.com', //'http://localhost:8080'
+          changeOrigin: true,
+          ws: true,
+          rewrite: (path) => {
+            console.log(path.replace(new RegExp('^' + env.VITE_APP_BASE_API), env.VITE_APP_BASE_API));
+            return path.replace(new RegExp('^/v1beta'), '/api/v1beta');
           },
 
           /**

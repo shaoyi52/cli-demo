@@ -1,23 +1,24 @@
 <template>
   <div class="navbar">
     <hamburger id="hamburger-container" :is-active="appStore.sidebar.opened" class="hamburger-container" @toggleClick="toggleSideBar" />
-    <breadcrumb id="breadcrumb-container" class="breadcrumb-container" v-if="!settingsStore.topNav" />
-    <top-nav id="topmenu-container" class="topmenu-container" v-if="settingsStore.topNav" />
-
+    <breadcrumb v-if="!settingsStore.topNav" id="breadcrumb-container" class="breadcrumb-container" />
+    <top-nav v-if="settingsStore.topNav" id="topmenu-container" class="topmenu-container" />
     <div class="right-menu flex align-center">
       <template v-if="appStore.device !== 'mobile'">
         <el-select
+          v-if="userId === 1 && tenantEnabled"
           v-model="companyName"
           clearable
           filterable
           reserve-keyword
           :placeholder="$t('navbar.selectTenant')"
-          v-if="userId === 1 && tenantEnabled"
           @change="dynamicTenantEvent"
           @clear="dynamicClearEvent"
         >
-          <el-option v-for="item in tenantList" :key="item.tenantId" :label="item.companyName" :value="item.tenantId"> </el-option>
-          <template #prefix><svg-icon icon-class="company" class="el-input__icon input-icon" /></template>
+          <el-option v-for="item in tenantList" :key="item.tenantId" :label="item.companyName" :value="item.tenantId" />
+          <template #prefix>
+            <svg-icon icon-class="company" class="el-input__icon input-icon" />
+          </template>
         </el-select>
 
         <!-- <header-search id="header-search" class="right-menu-item" /> -->
@@ -37,7 +38,7 @@
                 </el-badge>
               </template>
               <template #default>
-                <notice></notice>
+                <notice />
               </template>
             </el-popover>
           </div>
@@ -63,17 +64,17 @@
         </el-tooltip>
       </template>
       <div class="avatar-container">
-        <el-dropdown @command="handleCommand" class="right-menu-item hover-effect" trigger="click">
+        <el-dropdown class="right-menu-item hover-effect" trigger="click" @command="handleCommand">
           <div class="avatar-wrapper">
-            <img :src="userStore.avatar" class="user-avatar" />
+            <img :src="userStore.avatar" class="user-avatar">
             <el-icon><caret-bottom /></el-icon>
           </div>
           <template #dropdown>
             <el-dropdown-menu>
-              <router-link to="/user/profile" v-if="!dynamic">
+              <router-link v-if="!dynamic" to="/user/profile">
                 <el-dropdown-item>{{ $t('navbar.personalCenter') }}</el-dropdown-item>
               </router-link>
-              <el-dropdown-item command="setLayout" v-if="settingsStore.showSettings">
+              <el-dropdown-item v-if="settingsStore.showSettings" command="setLayout">
                 <span>{{ $t('navbar.layoutSetting') }}</span>
               </el-dropdown-item>
               <el-dropdown-item divided command="logout">
@@ -119,7 +120,7 @@ const searchMenuRef = ref<InstanceType<typeof SearchMenu>>();
 
 const openSearchMenu = () => {
   searchMenuRef.value?.openSearch();
-}
+};
 
 // 动态切换
 const dynamicTenantEvent = async (tenantId: string) => {
@@ -129,14 +130,14 @@ const dynamicTenantEvent = async (tenantId: string) => {
     proxy?.$tab.closeAllPage();
     proxy?.$router.push('/');
   }
-}
+};
 
 const dynamicClearEvent = async () => {
   await dynamicClear();
   dynamic.value = false;
   proxy?.$tab.closeAllPage();
   proxy?.$router.push('/');
-}
+};
 
 /** 租户列表 */
 const initTenantList = async () => {
@@ -145,41 +146,41 @@ const initTenantList = async () => {
   if (tenantEnabled.value) {
     tenantList.value = data.voList;
   }
-}
+};
 
 defineExpose({
   initTenantList,
-})
+});
 
 const toggleSideBar = () => {
   appStore.toggleSideBar(false);
-}
+};
 
 const logout = async () => {
     await ElMessageBox.confirm('确定注销并退出系统吗？', '提示', {
       confirmButtonText: '确定',
       cancelButtonText: '取消',
-      type: 'warning'
-    })
-    await userStore.logout()
+      type: 'warning',
+    });
+    await userStore.logout();
     location.href = import.meta.env.VITE_APP_CONTEXT_PATH + 'index';
-}
+};
 
-const emits = defineEmits(['setLayout'])
+const emits = defineEmits(['setLayout']);
 const setLayout = () => {
     emits('setLayout');
-}
+};
 // 定义Command方法对象 通过key直接调用方法
 const commandMap: {[key: string]: any} = {
     setLayout,
-    logout
+    logout,
 };
 const handleCommand = (command: string) => {
     // 判断是否存在该方法
     if (commandMap[command]) {
         commandMap[command]();
     }
-}
+};
 
 //用深度监听 消息
 watch(() => noticeStore.state.value.notices, (newVal, oldVal) => {

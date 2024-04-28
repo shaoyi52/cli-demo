@@ -1,3 +1,10 @@
 {
-  "rewrites": [{ "source": "/api/(.*)", "destination": "/api" }]
+  "rewrites": [{ "source": "/api/(.*)", "destination": "/api" }],
+  "routes": [
+    {
+      "src": "/v1beta/(.*)",
+      "dest": "https://us-west-2.data.tidbcloud.com/api/v1beta"
+    }
+  ]
+
 }

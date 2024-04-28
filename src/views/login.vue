@@ -1,7 +1,9 @@
 <template>
   <div class="login">
     <el-form ref="loginRef" :model="loginForm" :rules="loginRules" class="login-form">
-      <h3 class="title">RuoYi-Vue-Plus多租户管理系统</h3>
+      <h3 class="title">
+        RuoYi-Vue-Plus多租户管理系统
+      </h3>
       <!-- <el-form-item prop="tenantId" v-if="tenantEnabled">
         <el-select v-model="loginForm.tenantId" filterable placeholder="请选择/输入公司名称" style="width: 100%">
           <el-option v-for="item in tenantList" :key="item.tenantId" :label="item.companyName" :value="item.tenantId"></el-option>
@@ -10,12 +12,16 @@
       </el-form-item> -->
       <el-form-item prop="username">
         <el-input v-model="loginForm.username" type="text" size="large" auto-complete="off" placeholder="账号">
-          <template #prefix><svg-icon icon-class="user" class="el-input__icon input-icon" /></template>
+          <template #prefix>
+            <svg-icon icon-class="user" class="el-input__icon input-icon" />
+          </template>
         </el-input>
       </el-form-item>
       <el-form-item prop="password">
         <el-input v-model="loginForm.password" type="password" size="large" auto-complete="off" placeholder="密码" @keyup.enter="handleLogin">
-          <template #prefix><svg-icon icon-class="password" class="el-input__icon input-icon" /></template>
+          <template #prefix>
+            <svg-icon icon-class="password" class="el-input__icon input-icon" />
+          </template>
         </el-input>
       </el-form-item>
       <!-- <el-form-item prop="code" v-if="captchaEnabled">
@@ -26,7 +32,9 @@
           <img :src="codeUrl" @click="getCode" class="login-code-img" />
         </div>
       </el-form-item> -->
-      <el-checkbox v-model="loginForm.rememberMe" style="margin:0px 0px 25px 0px;">记住密码</el-checkbox>
+      <el-checkbox v-model="loginForm.rememberMe" style="margin:0px 0px 25px 0px;">
+        记住密码
+      </el-checkbox>
       <el-form-item style="float: right;">
         <el-button circle title="微信登录" @click="doSocialLogin('wechat')">
           <svg-icon icon-class="wechat" />
@@ -46,8 +54,10 @@
           <span v-if="!loading">登 录</span>
           <span v-else>登 录 中...</span>
         </el-button>
-        <div style="float: right;" v-if="register">
-          <router-link class="link-type" :to="'/register'">立即注册</router-link>
+        <div v-if="register" style="float: right;">
+          <router-link class="link-type" :to="'/register'">
+            立即注册
+          </router-link>
         </div>
       </el-form-item>
     </el-form>
@@ -75,14 +85,14 @@ const loginForm = ref<LoginData>({
   password: 'admin123',
   rememberMe: false,
   code: '',
-  uuid: ''
+  uuid: '',
 } as LoginData);
 
 const loginRules: ElFormRules = {
   tenantId: [{ required: true, trigger: "blur", message: "请输入您的租户编号" }],
   username: [{ required: true, trigger: 'blur', message: '请输入您的账号' }],
   password: [{ required: true, trigger: 'blur', message: '请输入您的密码' }],
-  code: [{ required: true, trigger: 'change', message: '请输入验证码' }]
+  code: [{ required: true, trigger: 'change', message: '请输入验证码' }],
 };
 
 const codeUrl = ref('');
@@ -161,9 +171,9 @@ const getLoginData = () => {
     tenantId: tenantId === null ? String(loginForm.value.tenantId) : tenantId,
     username: username === null ? String(loginForm.value.username) : username,
     password: password === null ? String(loginForm.value.password) : String(password),
-    rememberMe: rememberMe === null ? false : Boolean(rememberMe)
+    rememberMe: rememberMe === null ? false : Boolean(rememberMe),
   } as LoginData;
-}
+};
 
 
 /**
@@ -178,11 +188,11 @@ const initTenantList = async () => {
       loginForm.value.tenantId = tenantList.value[0].tenantId;
     }
   }
-}
+};
 
 //检测租户选择框的变化
 watch(() => loginForm.value.tenantId, () => {
-  localStorage.setItem("tenantId", String(loginForm.value.tenantId))
+  localStorage.setItem("tenantId", String(loginForm.value.tenantId));
 });
 
 /**

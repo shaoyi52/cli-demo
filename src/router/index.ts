@@ -1,6 +1,7 @@
-import { createWebHistory, createRouter, RouteOption } from 'vue-router';
+import type { RouteOption } from 'vue-router';
+import { createWebHistory, createRouter } from 'vue-router';
 /* Layout */
-import Layout from '@/layout/index.vue';
+import Layout from '@/_layout/index.vue';
 
 /**
  * Note: 路由配置项
@@ -33,34 +34,34 @@ export const constantRoutes: RouteOption[] = [
     children: [
       {
         path: '/redirect/:path(.*)',
-        component: () => import('@/views/redirect/index.vue')
-      }
-    ]
+        component: () => import('@/views/redirect/index.vue'),
+      },
+    ],
   },
   {
     path: '/social-callback',
     hidden: true,
-    component: () => import('@/layout/components/SocialCallback/index.vue')
+    component: () => import('@/layout/components/SocialCallback/index.vue'),
   },
   {
     path: '/login',
     component: () => import('@/views/login.vue'),
-    hidden: true
+    hidden: true,
   },
   {
     path: '/register',
     component: () => import('@/views/register.vue'),
-    hidden: true
+    hidden: true,
   },
   {
     path: '/:pathMatch(.*)*',
     component: () => import('@/views/error/404.vue'),
-    hidden: true
+    hidden: true,
   },
   {
     path: '/401',
     component: () => import('@/views/error/401.vue'),
-    hidden: true
+    hidden: true,
   },
   {
     path: '',
@@ -71,9 +72,9 @@ export const constantRoutes: RouteOption[] = [
         path: '/index',
         component: () => import('@/views/index.vue'),
         name: 'Index',
-        meta: { title: '首页', icon: 'dashboard', affix: true }
-      }
-    ]
+        meta: { title: '首页', icon: 'dashboard', affix: true },
+      },
+    ],
   },
   {
     path: '/user',
@@ -85,10 +86,10 @@ export const constantRoutes: RouteOption[] = [
         path: 'profile',
         component: () => import('@/views/system/user/profile/index.vue'),
         name: 'Profile',
-        meta: { title: '个人中心', icon: 'user' }
-      }
-    ]
-  }
+        meta: { title: '个人中心', icon: 'user' },
+      },
+    ],
+  },
 ];
 
 // 动态路由，基于用户权限动态去加载
@@ -103,9 +104,9 @@ export const dynamicRoutes: RouteOption[] = [
         path: 'role/:userId(\\d+)',
         component: () => import('@/views/system/user/authRole.vue'),
         name: 'AuthRole',
-        meta: { title: '分配角色', activeMenu: '/system/user', icon: '' }
-      }
-    ]
+        meta: { title: '分配角色', activeMenu: '/system/user', icon: '' },
+      },
+    ],
   },
   {
     path: '/system/role-auth',
@@ -117,9 +118,9 @@ export const dynamicRoutes: RouteOption[] = [
         path: 'user/:roleId(\\d+)',
         component: () => import('@/views/system/role/authUser.vue'),
         name: 'AuthUser',
-        meta: { title: '分配用户', activeMenu: '/system/role', icon: '' }
-      }
-    ]
+        meta: { title: '分配用户', activeMenu: '/system/role', icon: '' },
+      },
+    ],
   },
   {
     path: '/system/dict-data',
@@ -131,9 +132,9 @@ export const dynamicRoutes: RouteOption[] = [
         path: 'index/:dictId(\\d+)',
         component: () => import('@/views/system/dict/data.vue'),
         name: 'Data',
-        meta: { title: '字典数据', activeMenu: '/system/dict', icon: '' }
-      }
-    ]
+        meta: { title: '字典数据', activeMenu: '/system/dict', icon: '' },
+      },
+    ],
   },
   {
     path: '/system/oss-config',
@@ -145,9 +146,9 @@ export const dynamicRoutes: RouteOption[] = [
         path: 'index',
         component: () => import('@/views/system/oss/config.vue'),
         name: 'OssConfig',
-        meta: { title: '配置管理', activeMenu: '/system/oss', icon: '' }
-      }
-    ]
+        meta: { title: '配置管理', activeMenu: '/system/oss', icon: '' },
+      },
+    ],
   },
   {
     path: '/tool/gen-edit',
@@ -159,10 +160,10 @@ export const dynamicRoutes: RouteOption[] = [
         path: 'index/:tableId(\\d+)',
         component: () => import('@/views/tool/gen/editTable.vue'),
         name: 'GenEdit',
-        meta: { title: '修改生成配置', activeMenu: '/tool/gen', icon: '' }
-      }
-    ]
-  }
+        meta: { title: '修改生成配置', activeMenu: '/tool/gen', icon: '' },
+      },
+    ],
+  },
 ];
 
 /**
@@ -178,7 +179,7 @@ const router = createRouter({
     } else {
       return { top: 0 };
     }
-  }
+  },
 });
 
 export default router;

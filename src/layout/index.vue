@@ -22,12 +22,12 @@
 </template>
 
 <script setup lang="ts">
-import SideBar from './components/Sidebar/index.vue'
-import { AppMain, Navbar, Settings, TagsView } from './components'
-import useAppStore from '@/store/modules/app'
-import useSettingsStore from '@/store/modules/settings'
+import SideBar from './components/Sidebar/index.vue';
+import { AppMain, Navbar, Settings, TagsView } from './components';
+import useAppStore from '@/store/modules/app';
+import useSettingsStore from '@/store/modules/settings';
 
-const settingsStore = useSettingsStore()
+const settingsStore = useSettingsStore();
 const theme = computed(() => settingsStore.theme);
 const sidebar = computed(() => useAppStore().sidebar);
 const device = computed(() => useAppStore().device);
@@ -38,23 +38,23 @@ const classObj = computed(() => ({
     hideSidebar: !sidebar.value.opened,
     openSidebar: sidebar.value.opened,
     withoutAnimation: sidebar.value.withoutAnimation,
-    mobile: device.value === 'mobile'
-}))
+    mobile: device.value === 'mobile',
+}));
 
 const { width } = useWindowSize();
 const WIDTH = 992; // refer to Bootstrap's responsive design
 
 watchEffect(() => {
     if (device.value === 'mobile' && sidebar.value.opened) {
-        useAppStore().closeSideBar({ withoutAnimation: false })
+        useAppStore().closeSideBar({ withoutAnimation: false });
     }
     if (width.value - 1 < WIDTH) {
-        useAppStore().toggleDevice('mobile')
-        useAppStore().closeSideBar({ withoutAnimation: true })
+        useAppStore().toggleDevice('mobile');
+        useAppStore().closeSideBar({ withoutAnimation: true });
     } else {
-        useAppStore().toggleDevice('desktop')
+        useAppStore().toggleDevice('desktop');
     }
-})
+});
 
 const navbarRef = ref(Navbar);
 const settingRef = ref(Settings);
@@ -62,16 +62,16 @@ const settingRef = ref(Settings);
 onMounted(() => {
   nextTick(() => {
     //navbarRef.value.initTenantList();
-  })
-})
+  });
+});
 
 const handleClickOutside = () => {
-  useAppStore().closeSideBar({ withoutAnimation: false })
-}
+  useAppStore().closeSideBar({ withoutAnimation: false });
+};
 
 const setLayout = () => {
   settingRef.value.openSetting();
-}
+};
 </script>
 
 <style lang="scss" scoped>

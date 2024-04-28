@@ -3,14 +3,14 @@ import { createApp } from 'vue';
 import 'uno.css';
 import '@/assets/styles/index.scss';
 import 'element-plus/theme-chalk/dark/css-vars.css';
-import ElementPlus from 'element-plus'  //引入element-plus库
+import ElementPlus from 'element-plus';  //引入element-plus库
 
 // App、router、store
 import App from './App.vue';
 import store from './store';
 import router from './router';
-import VForm3 from '@/../lib/vform/designer.umd.js'
-import '../lib/vform/style.css'
+import VForm3 from '@/../lib/vform/designer.umd.js';
+import '../lib/vform/style.css';
 
 // 自定义指令
 import directive from './directive';
@@ -38,8 +38,8 @@ import i18n from '@/lang/index';
 
 const app = createApp(App);
 
-app.use(ElementPlus)  //全局注册element-plus
-app.use(VForm3)  //全局注册VForm3，同时注册了v-form-designer、v-form-render等组件
+app.use(ElementPlus);  //全局注册element-plus
+app.use(VForm3);  //全局注册VForm3，同时注册了v-form-designer、v-form-render等组件
 
 // 全局方法挂载
 app.config.globalProperties.useDict = useDict;

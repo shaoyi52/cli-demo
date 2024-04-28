@@ -59,7 +59,7 @@
         <el-table-column label="英文名称" align="center" prop="name" :show-overflow-tooltip="true" />
         <el-table-column label="中文名称" align="center" :show-overflow-tooltip="true">
           <template #default="scope">
-            <span @click="toDesgin(scope.row)">{{ scope.row.title }}</span>
+            <span style="cursor: pointer;" @click="toDesgin(scope.row)">{{ scope.row.title }}</span>
           </template>
         </el-table-column>
         <el-table-column label="备注" align="center" prop="remark" :show-overflow-tooltip="true" />
@@ -113,6 +113,7 @@
 import useDictStore from '@/store/modules/dict'
 import { list,updateView,addView} from "@/api/system/view";
 import { ViewTypeForm, DictTypeQuery, DictTypeVO } from "@/api/system/view/types";
+import digestReqest from '@/utils/digestReqest';
 const router = useRouter();
 
 const { proxy } = getCurrentInstance() as ComponentInternalInstance;
@@ -178,7 +179,7 @@ const toDesgin=(row)=>{
     localStorage.setItem('form__config__backup',JSON.stringify(formConfig))
     localStorage.setItem('widget__list__backup',JSON.stringify(widgetList))
   }
-  router.push({ path: '/afc/designer/index?id=' + row.id })
+  router.push('/afc/designer/index?id=' + row.id )
 }
 /** 取消按钮 */
 const cancel = () => {
@@ -250,9 +251,20 @@ const handleExport = () => {
 }
 /** 刷新缓存按钮操作 */
 const handleRefreshCache = async () => {
-  await refreshCache();
+  digestReqest({
+          method: 'get',
+          url: '/v1beta/app/dataapp-RrPjRpDX/endpoint/dict',
+          params: {
+            page: 1,
+            page_size: 20
+          }}).then(resp => {
+            console.log('request response data is')
+            console.log(resp)
+          })
+
+ /*  await refreshCache();
   proxy?.$modal.msgSuccess("刷新成功");
-  useDictStore().cleanDict();
+  useDictStore().cleanDict(); */
 }
 
 onMounted(() => {
