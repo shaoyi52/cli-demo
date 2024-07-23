@@ -1,14 +1,16 @@
 <template>
-  <Header />
-  <Sider />
-  <div :class="classObj" class="app-wrapper" :style="{ '--current-color': theme }">
-    <div v-if="device === 'mobile' && sidebar.opened" class="drawer-bg" @click="handleClickOutside" />
-    <div :class="{ hasTagsView: needTagsView, sidebarHide: sidebar.hide }" class="main-container">
-      <div :class="{ 'fixed-header': fixedHeader }">
-        <tags-view v-if="needTagsView" />
+  <div>
+    <Header />
+    <Sider />
+    <div :class="classObj" class="app-wrapper" :style="{ '--current-color': theme }">
+      <div v-if="device === 'mobile' && sidebar.opened" class="drawer-bg" @click="handleClickOutside" />
+      <div :class="{ hasTagsView: needTagsView, sidebarHide: sidebar.hide }" class="main-container">
+        <div :class="{ 'fixed-header': fixedHeader }">
+          <tags-view v-if="needTagsView" />
+        </div>
+        <app-main />
+        <settings ref="settingRef" />
       </div>
-      <app-main />
-      <settings ref="settingRef" />
     </div>
   </div>
 </template>

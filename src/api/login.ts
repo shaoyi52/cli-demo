@@ -1,6 +1,6 @@
 import request from '@/utils/request';
-import { AxiosPromise } from 'axios';
-import { LoginData, LoginResult, VerifyCodeResult, TenantInfo } from './types';
+import type { AxiosPromise } from 'axios';
+import type { LoginData, LoginResult, VerifyCodeResult, TenantInfo } from './types';
 import { UserInfo } from '@/api/system/user/types';
 
 // pc端固定客户端授权id
@@ -14,16 +14,16 @@ export function login(data: LoginData): AxiosPromise<LoginResult> {
   const params = {
     ...data,
     clientId: data.clientId || clientId,
-    grantType: data.grantType || 'password'
+    grantType: data.grantType || 'password',
   };
   return request({
     url: '/auth/login',
     headers: {
       isToken: false,
-      isEncrypt: true
+      isEncrypt: true,
     },
     method: 'post',
-    data: params
+    data: params,
   });
 }
 
@@ -31,17 +31,17 @@ export function login(data: LoginData): AxiosPromise<LoginResult> {
 export function register(data: any) {
   const params = {
     ...data,
-    clientId: clientId,
-    grantType: 'password'
+    clientId,
+    grantType: 'password',
   };
   return request({
     url: '/auth/register',
     headers: {
       isToken: false,
-      isEncrypt: true
+      isEncrypt: true,
     },
     method: 'post',
-    data: params
+    data: params,
   });
 }
 
@@ -51,7 +51,7 @@ export function register(data: any) {
 export function logout() {
   return request({
     url: '/auth/logout',
-    method: 'post'
+    method: 'post',
   });
 }
 
@@ -62,10 +62,10 @@ export function getCodeImg(): AxiosPromise<VerifyCodeResult> {
   return request({
     url: '/auth/code',
     headers: {
-      isToken: false
+      isToken: false,
     },
     method: 'get',
-    timeout: 20000
+    timeout: 20000,
   });
 }
 
@@ -75,13 +75,13 @@ export function getCodeImg(): AxiosPromise<VerifyCodeResult> {
 export function callback(data: LoginData): AxiosPromise<any> {
   const LoginData = {
     ...data,
-    clientId: clientId,
-    grantType: 'social'
+    clientId,
+    grantType: 'social',
   };
   return request({
     url: '/auth/social/callback',
     method: 'post',
-    data: LoginData
+    data: LoginData,
   });
 }
 
@@ -124,7 +124,7 @@ export function getInfo() {
             id: '',
             children: [],
             delFlag: '',
-            menuId: ''
+            menuId: '',
           },
           roles: [
             {
@@ -141,22 +141,22 @@ export function getInfo() {
               flag: false,
               delFlag: '0',
               admin: true,
-              superAdmin: true
-            }
+              superAdmin: true,
+            },
           ],
           roleIds: null,
           postIds: null,
-          roleId: 1
+          roleId: 1,
         },
         permissions: ['*:*:*'],
-        roles: ['superadmin']
-      }
-    })
+        roles: ['superadmin'],
+      },
+    }),
   );
 
   return request({
     url: '/system/user/getInfo',
-    method: 'get'
+    method: 'get',
   });
 }
 
@@ -165,8 +165,8 @@ export function getTenantList(): AxiosPromise<TenantInfo> {
   return request({
     url: '/auth/tenant/list',
     headers: {
-      isToken: false
+      isToken: false,
     },
-    method: 'get'
+    method: 'get',
   });
 }

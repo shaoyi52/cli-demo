@@ -34,6 +34,7 @@
       }
       return path;
   });
+  const sideTheme={};
 </script>
   
 <style scoped lang="scss">

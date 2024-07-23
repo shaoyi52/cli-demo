@@ -1,4 +1,8 @@
 import { parseTime } from '@/utils/ruoyi';
+import { isArray, isObject } from '@/utils/is';
+import { cloneDeep, isEqual, mergeWith, unionWith } from 'lodash-es';
+import conf from '~/config/conf.json';
+export const config = Object.assign(conf,window.conf);
 
 /**
  * 表格时间格式化
@@ -108,7 +112,7 @@ export const param = (json: any) => {
     Object.keys(json).map((key) => {
       if (json[key] === undefined) return '';
       return encodeURIComponent(key) + '=' + encodeURIComponent(json[key]);
-    })
+    }),
   ).join('&');
 };
 
@@ -316,3 +320,24 @@ export const removeClass = (ele: HTMLElement, cls: string) => {
 export const isExternal = (path: string) => {
   return /^(https?:|http?:|mailto:|tel:)/.test(path);
 };
+
+export function deepMerge<T extends object | null | undefined,U extends object | null |undefined >(target:T,source:U):T & U{
+  return mergeWith(cloneDeep(target),source,(objValue,srcValue)=>{
+    if(isObject(objValue)&&isObject(srcValue)) {
+      return mergeWith(cloneDeep(objValue),srcValue,(prevValue,nextValue)=>{
+        // 如果是数组；合并数组（去重）
+        return isArray(prevValue)? unionWith(prevValue,nextValue,isEqual):undefined;
+      });
+    }
+  });
+}
+
+export function getDynamicProps<T extends Record<string,unknown>,U>(props:T): Partial<U>{
+  const ret: Recordable = {};
+
+  Object.keys(props).map(key=>{
+    ret[key]=unref(props[key]);    
+  });
+  return ret as Partial<U>;
+}
+

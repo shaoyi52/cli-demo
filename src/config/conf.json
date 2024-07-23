@@ -1,0 +1,12 @@
+{
+	"VITE_APP_TITLE": "RuoYi-Vue-Plus多租户管理系统",
+	"VITE_APP_ENV": "development",
+	"VITE_APP_BASE_API": "/api",
+	"VITE_APP_CONTEXT_PATH": "/",
+	"VITE_APP_MONITRO_ADMIN": "http://localhost:9090/admin/applications",
+	"VITE_APP_POWERJOB_ADMIN": "http://localhost:7700/",
+	"VITE_APP_PORT": "8000",
+	"VITE_APP_RSA_PUBLIC_KEY": "MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAKoR8mX0rGKLqzcWmOzbfj64K8ZIgOdHnzkXSOVOZbFu/TJhZ7rFAN+eaGkl3C4buccQd/EjEsj9ir7ijT7h96MCAwEAAQ==",
+	"VITE_APP_CLIENT_ID": "e5cd7e4891bf95d1d19206ce24a7b32e",
+	"VITE_APP_WEBSOCKET": "false"
+}

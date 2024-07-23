@@ -1,6 +1,5 @@
 <template>
   <div>
-    <el-form>
       <el-card shadow="hover">
         <el-form ref="formRef" label-position="top" :model="FormData" label-width="68px" :rules="FORM_RULES">
           <div class="form-base-container">
@@ -131,7 +130,6 @@
           </div>
         </el-form>
       </el-card>
-    </el-form>
   </div>
 </template>
   

@@ -1,6 +1,6 @@
 import request from '@/utils/request';
-import { AxiosPromise } from 'axios';
-import { ClientVO, ClientForm, ClientQuery } from '@/api/system/client/types';
+import type { AxiosPromise } from 'axios';
+import type { ClientVO, ClientForm, ClientQuery } from '@/api/system/client/types';
 
 /**
  * 查询客户端管理列表
@@ -12,7 +12,7 @@ export const listClient = (query?: ClientQuery): AxiosPromise<ClientVO[]> => {
   return request({
     url: '/system/client/list',
     method: 'get',
-    params: query
+    params: query,
   });
 };
 
@@ -23,7 +23,7 @@ export const listClient = (query?: ClientQuery): AxiosPromise<ClientVO[]> => {
 export const getClient = (id: string | number): AxiosPromise<ClientVO> => {
   return request({
     url: '/system/client/' + id,
-    method: 'get'
+    method: 'get',
   });
 };
 
@@ -35,7 +35,7 @@ export const addClient = (data: ClientForm) => {
   return request({
     url: '/system/client',
     method: 'post',
-    data: data
+    data,
   });
 };
 
@@ -47,7 +47,7 @@ export const updateClient = (data: ClientForm) => {
   return request({
     url: '/system/client',
     method: 'put',
-    data: data
+    data,
   });
 };
 
@@ -58,7 +58,7 @@ export const updateClient = (data: ClientForm) => {
 export const delClient = (id: string | number | Array<string | number>) => {
   return request({
     url: '/system/client/' + id,
-    method: 'delete'
+    method: 'delete',
   });
 };
 
@@ -70,11 +70,11 @@ export const delClient = (id: string | number | Array<string | number>) => {
 export function changeStatus(id: number | string, status: string) {
   const data = {
     id,
-    status
+    status,
   };
   return request({
     url: '/system/client/changeStatus',
     method: 'put',
-    data: data
+    data,
   });
 }

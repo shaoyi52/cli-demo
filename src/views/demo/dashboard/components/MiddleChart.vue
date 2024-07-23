@@ -35,7 +35,7 @@
 </template>
 
 <script setup lang='ts' name="MiddleChart">
-import { onMounted, ref,markRaw } from 'vue';
+import { onMounted, ref,markRaw,onUnmounted } from 'vue';
 import CardHeader from './CardHeader.vue';
 // 引入提示框，标题，直角坐标系，数据集，内置数据转换器组件，组件后缀都为 Component
 import {
@@ -66,7 +66,9 @@ onMounted(() => {
   window.addEventListener('resize', updateContainer);
   renderCharts();
 });
-
+onUnmounted(()=>{
+  window.removeEventListener('resize', updateContainer);
+});
 
 const updateContainer = () => {
   if (document.documentElement.clientWidth >= 1400 && document.documentElement.clientWidth < 1920) {
@@ -115,6 +117,7 @@ const renderCharts = () => {
   }
 
 };
+
 </script>
 
 <style></style>

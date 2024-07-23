@@ -49,11 +49,15 @@
       <div>中间对齐内容</div>
       <div>右对齐内容</div>
     </Flex>
+    <CountTo />
+    <Authority value="admin1">
+      <div>test1</div>
+    </Authority>
   </div>
 </template>
   
 <script setup lang='ts'>
-  import Flex from '@/components/Flex';
+console.log("test");
 </script>
   
 <style lang="scss" scoped>

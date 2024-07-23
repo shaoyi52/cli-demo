@@ -147,7 +147,6 @@ const renderCharts = () => {
 
 };
 onBeforeUnmount(() => {
-  console.log('onBeforeUnmount');
   window.removeEventListener('resize', updateContainer);
 });
 

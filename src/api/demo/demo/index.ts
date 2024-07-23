@@ -1,6 +1,6 @@
 import request from '@/utils/request';
-import { AxiosPromise } from 'axios';
-import { DemoVO, DemoForm, DemoQuery } from '@/api/demo/demo/types';
+import type { AxiosPromise } from 'axios';
+import type { DemoVO, DemoForm, DemoQuery } from '@/api/demo/demo/types';
 
 /**
  * 查询测试单列表
@@ -11,7 +11,7 @@ export const listDemo = (query?: DemoQuery): AxiosPromise<DemoVO[]> => {
   return request({
     url: '/demo/demo/list',
     method: 'get',
-    params: query
+    params: query, 
   });
 };
 
@@ -22,7 +22,7 @@ export const listDemo = (query?: DemoQuery): AxiosPromise<DemoVO[]> => {
 export const getDemo = (id: string | number): AxiosPromise<DemoVO> => {
   return request({
     url: '/demo/demo/' + id,
-    method: 'get'
+    method: 'get',
   });
 };
 
@@ -34,7 +34,7 @@ export const addDemo = (data: DemoForm) => {
   return request({
     url: '/demo/demo',
     method: 'post',
-    data: data
+    data,
   });
 };
 
@@ -46,7 +46,7 @@ export const updateDemo = (data: DemoForm) => {
   return request({
     url: '/demo/demo',
     method: 'put',
-    data: data
+    data,
   });
 };
 
@@ -57,6 +57,6 @@ export const updateDemo = (data: DemoForm) => {
 export const delDemo = (id: string | number | Array<string | number>) => {
   return request({
     url: '/demo/demo/' + id,
-    method: 'delete'
+    method: 'delete',
   });
 };

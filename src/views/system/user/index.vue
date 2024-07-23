@@ -102,6 +102,9 @@
                       <el-dropdown-item icon="Download" @click="handleExport">
                         导出数据
                       </el-dropdown-item>
+                      <el-dropdown-item icon="Download" @click="handlePdfExport">
+                        导出数据
+                      </el-dropdown-item>
                     </el-dropdown-menu>
                   </template>
                 </el-dropdown>
@@ -529,6 +532,12 @@ const handleSelectionChange = (selection: UserVO[]) => {
   multiple.value = !selection.length;
 };
 
+/** 导出按钮操作 */
+const handlePdfExport = () => {
+  proxy?.pdfDownLoad("system/user/export", {
+    ...queryParams.value,
+  }, `user_${new Date().getTime()}.xlsx`);
+};
 /** 导入按钮操作 */
 const handleImport = () => {
   upload.title = "用户导入";

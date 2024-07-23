@@ -199,5 +199,31 @@ export function download(url: string, params: any, fileName: string) {
       downloadLoadingInstance.close();
     });
 }
+
+function displayPdfPreview(pdfBlob:any) {
+  const url = URL.createObjectURL(pdfBlob);
+  const iframe = document.createElement('iframe');
+  iframe.src = url;
+  iframe.style.width = '100%'; // 设置宽度
+  iframe.style.height = '100%'; // 设置高度
+  document.body.appendChild(iframe); // 将 iframe 添加到DOM中
+}
+
+export  async function  pdfDownLoad(url: string){
+  try {
+    const response = await service({
+      url: '/your-api-endpoint-to-get-pdf', // 替换为你的API地址
+      method: url,
+      responseType: 'blob', // 重要！告诉 Axios 把响应体当作 Blob 处理
+      headers: { 
+        // 如果需要，可以在这里添加认证信息等 headers
+      },
+    });
+    displayPdfPreview(response.data) ; // 返回 Blob 数据
+  } catch (error) {
+    console.error('Error fetching PDF:', error);
+    throw error;
+  }
+}
 // 导出 axios 实例
 export default service;

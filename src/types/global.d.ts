@@ -38,6 +38,8 @@ declare global {
     url: string;
   }
 
+  declare type Nullable<T> = T | null
+
   /**
    * 导入属性
    */
@@ -69,7 +71,8 @@ declare global {
     updateBy?: any;
     updateTime?: any;
   }
-
+  
+  declare type Recordable<T = any> = Record<string, T>
   /**
    * 分页数据
    * T : 表单数据
@@ -87,5 +90,7 @@ declare global {
     pageNum?: number;
     pageSize?: number;
   }
+
+
 }
 export {};

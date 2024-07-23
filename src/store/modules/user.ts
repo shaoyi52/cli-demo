@@ -3,7 +3,7 @@ import defAva from '@/assets/images/profile.jpg';
 import store from '@/store';
 import { getToken, removeToken, setToken } from '@/utils/auth';
 import { login as loginApi, logout as logoutApi, getInfo as getUserInfo } from '@/api/login';
-import { LoginData } from '@/api/types';
+import type { LoginData } from '@/api/types';
 
 export const useUserStore = defineStore('user', () => {
   const token = ref(getToken());
@@ -70,7 +70,7 @@ export const useUserStore = defineStore('user', () => {
             id: '',
             children: [],
             delFlag: '',
-            menuId: ''
+            menuId: '',
           },
           roles: [
             {
@@ -87,16 +87,16 @@ export const useUserStore = defineStore('user', () => {
               flag: false,
               delFlag: '0',
               admin: true,
-              superAdmin: true
-            }
+              superAdmin: true,
+            },
           ],
           roleIds: null,
           postIds: null,
-          roleId: 1
+          roleId: 1,
         },
         permissions: ['*:*:*'],
-        roles: ['superadmin']
-      }
+        roles: ['superadmin'],
+      },
     };
     if (res) {
       const data = res.data;
@@ -137,7 +137,7 @@ export const useUserStore = defineStore('user', () => {
     permissions,
     login,
     getInfo,
-    logout
+    logout,
   };
 });
 
