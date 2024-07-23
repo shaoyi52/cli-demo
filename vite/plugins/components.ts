@@ -4,7 +4,9 @@ import IconsResolver from 'unplugin-icons/resolver';
 
 export default (path: any) => {
   return Components({
-    resolvers: [
+    // 指定组件位置，默认是src/components
+    dirs: ['src/components'],
+    resolvers: [      
       // 自动导入 Element Plus 组件
       ElementPlusResolver(),
       // 自动注册图标组件

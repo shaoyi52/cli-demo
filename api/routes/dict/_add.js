@@ -1,5 +1,5 @@
-var express = require('express');
-var router = express.Router();
+let express = require('express');
+let router = express.Router();
 const { oauth, tool, db, log } = require('../../common/tool/_require');
 
 /*
@@ -22,7 +22,7 @@ router.use('', async function (req, res, next) {
   let list = {
     dictName,
     dictType,
-    remark: remark
+    remark,
   };
   try {
     let sql = `INSERT INTO dict(dictName,dictType,remark) VALUES ("${list.dictName}","${list.dictType}","${list.remark}")`;

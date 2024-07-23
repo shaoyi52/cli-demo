@@ -6,6 +6,7 @@
     "moduleResolution": "node",
     "strict": true,
     "jsx": "preserve",
+    "jsxImportSource": "vue",
     "sourceMap": true,
     "resolveJsonModule": true,
     "esModuleInterop": true,
@@ -15,12 +16,12 @@
     "paths": {
       "@/*": ["src/*"]
     },
-    "types": ["vite/client"],
+    "types": ["vue","vite/client"],
     "skipLibCheck": true,
     // 允许默认导入
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true
   },
-  "include": ["src/**/*.ts", "src/**/*.vue", "src/types/**/*.d.ts"],
+  "include": ["src/**/*.ts", "src/**/*.vue", "src/types/**/*.d.ts", "src/components/Form/components/FormItem.ts"],
   "exclude": ["node_modules", "dist", "**/*.js"]
 }

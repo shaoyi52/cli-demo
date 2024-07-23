@@ -11,7 +11,8 @@
     "lint": "eslint src/**/*.{ts,js,vue} --fix",
     "prepare": "husky install",
     "prettier": "prettier --write .",
-    "service": "nodemon api/bin/_www.js"
+    "service": "nodemon --watch api api/bin/_www.js",
+    "build-mock": "node ./scripts/build-mock.js "
   },
   "repository": {
     "type": "git",
@@ -20,6 +21,9 @@
   "dependencies": {
     "@element-plus/icons-vue": "2.1.0",
     "@mhoc/axios-digest-auth": "^0.8.0",
+    "@vitejs/plugin-vue-jsx": "^3.1.0",
+    "@vue/babel-preset-jsx": "^1.4.0",
+    "@vue/runtime-dom": "^3.4.27",
     "@vueup/vue-quill": "1.2.0",
     "@vueuse/core": "9.5.0",
     "animate.css": "4.1.1",
@@ -47,7 +51,7 @@
     "tracer": "^1.1.4",
     "uuid": "^9.0.1",
     "vform3-builds": "3.0.8",
-    "vue": "3.2.45",
+    "vue": "^3.4.27",
     "vue-cropper": "1.0.3",
     "vue-i18n": "9.2.2",
     "vue-router": "4.1.4",
@@ -62,13 +66,15 @@
     "@types/node": "18.14.2",
     "@types/nprogress": "0.2.0",
     "@types/path-browserify": "^1.0.0",
+    "@types/vue": "^2.0.0",
     "@typescript-eslint/eslint-plugin": "5.56.0",
     "@typescript-eslint/parser": "5.56.0",
     "@unocss/preset-attributify": "^0.50.6",
     "@unocss/preset-icons": "^0.50.6",
     "@unocss/preset-uno": "^0.50.6",
     "@vitejs/plugin-vue": "4.0.0",
-    "@vue/compiler-sfc": "3.2.45",
+    "@vue/compiler-sfc": "^3.4.27",
+    "@vue/runtime-core": "^3.4.26",
     "autoprefixer": "10.4.14",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "8.8.0",
@@ -90,7 +96,7 @@
     "vite-plugin-compression": "0.5.1",
     "vite-plugin-svg-icons": "2.0.1",
     "vitest": "^0.29.7",
-    "vue-eslint-parser": "9.1.0",
+    "vue-eslint-parser": "^9.1.0",
     "vue-tsc": "0.35.0"
   }
 }

@@ -1,0 +1,10 @@
+{
+	"title": "前端模板1",
+	"pathPrefix": "",
+	"apiPrefix": "",
+	"debug": true,
+	"delay": 500,
+	"mock": {
+		"model.login": "success"
+	}
+}

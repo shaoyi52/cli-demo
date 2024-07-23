@@ -1,0 +1,16 @@
+{
+	"model": {
+		"login": {
+			"success": {
+				"success": true,
+				"code": 0,
+				"content": {
+					"name": "admin",
+					"nickname": "超级管理员",
+					"permission": 15
+				},
+				"message": ""
+			}
+		}
+	}
+}

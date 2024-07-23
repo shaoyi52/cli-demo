@@ -7,14 +7,22 @@ module.exports = {
     jest: true,
     es6: true,
   },
-  parser: '@typescript-eslint/parser',
+  parser: 'vue-eslint-parser',
+  parserOptions: {
+    parser: "@typescript-eslint/parser",
+    ecmaVersion: 2022,
+    sourceType: 'module',
+    extraFileExtensions: [".vue"], // 告诉ESLint将.vue文件视为可解析的
+  },
+  /* parser: '@typescript-eslint/parser',
   parserOptions: {
     parser: 'babel-eslint',
-  },
+  }, */
   extends: [
     'plugin:vue/vue3-recommended',
     'plugin:import/recommended',
     'plugin:import/typescript',
+    "plugin:@typescript-eslint/recommended"
     //'@vue/typescript/recommended',
     //'@vue/prettier',
     // 'prettier',
@@ -28,6 +36,7 @@ module.exports = {
   plugins: [  '@typescript-eslint', 'import'],
   globals: {
     defineProps: 'readonly',
+    PropType: 'writable',
   },
   overrides: [
     
@@ -79,7 +88,8 @@ module.exports = {
     'no-console': [2, { allow: ['warn', 'error'] }],
     'object-shorthand': 2,
     'no-unused-vars': [2, { ignoreRestSiblings: true, argsIgnorePattern: '^_' }],
-    'no-undef': 2,
+    //'no-undef': 2,
+    "no-undef": [0, { "typeof": true }],
     camelcase: 'off',
     'no-extra-boolean-cast': 'off',
     semi: ['error', 'always'],
