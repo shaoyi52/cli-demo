@@ -1,7 +1,8 @@
 import type { VNode} from 'vue';
 import type {ButtonProps as elButtonProps} from '@/components/Button';
-import type { FormInstance, RowProps } from 'element-plus';
+import type { FormInstance, RowProps,FormItemRule} from 'element-plus';
 import type { ColEx,ComponentType} from './index';
+
 
 export interface RenderCallbackParams {
   schema: FormSchema
@@ -62,12 +63,19 @@ export interface FormSchema{
   // render component
   component:ComponentType
 
+  colProps?:  Partial<ColEx>
+
   required?: boolean
   // 默认值
   defaultValue?: any
+  rulesMessageJoinLabel?:boolean
 
    // 是否自动处理与时间相关组件的默认值
    isHandleDateDefaultValue?: boolean
+
+   slot?:string
+
+   rules?:FormItemRule[]
 }
 
 export interface AdvanceState{

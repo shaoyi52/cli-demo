@@ -619,20 +619,60 @@ export const getRoutes=()=>{
             },
           ],
         },
-        {
-          name: 'Https://gitee.com/dromara/RuoYi-Vue-Plus',
-          path: 'https://gitee.com/dromara/RuoYi-Vue-Plus',
-          hidden: false,
-          component: 'Layout',
-          meta: {
-            title: 'PLUS官网',
-            icon: 'guide',
-            noCache: false,
-            link: 'https://gitee.com/dromara/RuoYi-Vue-Plus',
-          },
-        },
+
+
       ],
     },{title:'商户管理',key:"shManage",menus:[
+      {
+        name: 'dashboard',
+        path: '/dashboard',
+        hidden: false,
+        component: 'Layout',
+        meta: {
+          title: 'Dashboard',
+          icon: 'dashboard',
+          noCache: false,
+          link: 'null',
+        },
+        children: [
+          {
+            name: 'console',
+            path: 'console',
+            hidden: false,
+            component: 'dashboard/console/base',
+            meta: {
+              title: '主控台',
+              //icon: 'code',
+              noCache: false,
+              link: null,
+            },
+          },
+          {
+            name: 'workplace',
+            path: 'workplace',
+            hidden: false,
+            component: 'dashboard/workplace/index',
+            meta: {
+              title: '工作台',
+              //icon: 'code',
+              noCache: false,
+              link: null,
+            },
+          },
+          {
+            name: 'monitor',
+            path: 'monitor',
+            hidden: false,
+            component: 'dashboard/monitor/index',
+            meta: {
+              title: '监控台',
+              //icon: 'code',
+              noCache: false,
+              link: null,
+            },
+          },
+        ],
+      },
       {
         name: 'Demo',
         path: '/demo',
@@ -683,6 +723,32 @@ export const getRoutes=()=>{
               link: null,
             },
           },
+          {"name": "listdemo",
+            "path": "listdemo",
+            "hidden": false,
+            "redirect": "noRedirect",
+            "component": "ParentView",
+            "alwaysShow": true,
+            "meta": {
+                "title": "列表管理",
+                "icon": "log",
+                "noCache": false,
+                "link": null,
+            },
+            "children": [
+              {
+                "name": "baseList",
+                "path": "base",
+                "hidden": false,
+                "component": "demo/list/base/index",
+                "meta": {
+                    "title": "基础列表",
+                    "icon": "form",
+                    "noCache": false,
+                    "link": null,
+                },
+            },
+            ]},
           {
             "name": "form",
             "path": "form",
@@ -698,8 +764,8 @@ export const getRoutes=()=>{
             },
             "children": [
                 {
-                    "name": "base-form",
-                    "path": "base-form",
+                    "name": "baseForm",
+                    "path": "baseForm",
                     "hidden": false,
                     "component": "demo/form/base-form",
                     "meta": {
@@ -736,6 +802,32 @@ export const getRoutes=()=>{
               
             ],
         },
+        {
+          "name": "interaction",
+          "path": "interaction",
+          "hidden": false,
+          "redirect": "noRedirect",
+          "component": "ParentView",
+          "alwaysShow": true,
+          "meta": {
+              "title": "交互管理",
+              "icon": "log",
+              "noCache": false,
+              "link": null,
+          },
+          "children": [{
+            "name": "interaction-form",
+            "path": "base-form",
+            "hidden": false,
+            "component": "demo/interaction/detail",
+            "meta": {
+                "title": "弹窗",
+                "icon": "form",
+                "noCache": false,
+                "link": null,
+            },
+        }],
+        },
         ],
       },
       {
@@ -759,6 +851,44 @@ export const getRoutes=()=>{
             component: 'demo/datainput/proForm',
             meta: {
               title: '表单',
+              icon: 'code',
+              noCache: false,
+              link: null,
+            },
+          },
+        ],
+      },
+      {
+        name: 'Https://gitee.com/dromara/RuoYi-Vue-Plus',
+        path: 'https://gitee.com/dromara/RuoYi-Vue-Plus',
+        hidden: false,
+        component: 'Layout',
+        meta: {
+          title: 'PLUS官网',
+          icon: 'guide',
+          noCache: false,
+          link: 'https://gitee.com/dromara/RuoYi-Vue-Plus',
+        },
+      },
+      {
+        name: 'about',
+        path: '/about',
+        hidden: false,
+        component: 'Layout',
+        meta: {
+          title: '关于项目',
+          icon: 'guide',
+          noCache: false,
+          link: 'null',
+        },
+        children: [
+          {
+            name: 'about_index',
+            path: 'index',
+            hidden: false,
+            component: 'about/index',
+            meta: {
+              title: '关于项目Item',
               icon: 'code',
               noCache: false,
               link: null,

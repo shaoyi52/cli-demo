@@ -1,5 +1,10 @@
-import { ElInput,ElDivider } from "element-plus";
+import { ElInput,ElDivider,ElSelect } from "element-plus";
+import CustomSelect from '@/components/CustomSelect/index.vue';
+import CustomRadio from '@/components/CustomRadio/index.vue';
 const componentMap = new Map();
 componentMap.set('ElInput',ElInput);
-
+componentMap.set('ElSelect',ElSelect);
+componentMap.set('ElDivider',ElDivider);
+componentMap.set('CustomSelect',CustomSelect);
+componentMap.set('CustomRadio',CustomRadio);
 export { componentMap };

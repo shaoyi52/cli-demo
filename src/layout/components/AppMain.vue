@@ -3,7 +3,7 @@
     <router-view v-slot="{ Component, route }">
       <transition :enter-active-class="animante" mode="out-in">
         <keep-alive :include="tagsViewStore.cachedViews">
-          <component v-if="!route.meta.link" :is="Component" :key="route.path" />
+          <component :is="Component" v-if="!route.meta.link" :key="route.path" />
         </keep-alive>
       </transition>
     </router-view>
@@ -14,7 +14,7 @@
 <script setup name="AppMain" lang="ts">
 import useTagsViewStore from '@/store/modules/tagsView';
 import useSettingsStore from '@/store/modules/settings';
-import IframeToggle  from './IframeToggle/index.vue'
+import IframeToggle  from './IframeToggle/index.vue';
 import { ComponentInternalInstance } from "vue";
 const { proxy } = getCurrentInstance() as ComponentInternalInstance;
 const tagsViewStore = useTagsViewStore();
@@ -39,6 +39,7 @@ watch(()=> useSettingsStore().animationEnable, (val) => {
   width: 100%;
   position: relative;
   overflow: hidden;
+  overflow-y: scroll
 }
 
 .fixed-header+.app-main {

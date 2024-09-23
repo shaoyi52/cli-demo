@@ -16,6 +16,7 @@
           </FormItem>
         </template>
       </el-row>
+      <FormAction />
     </el-form>
   </div>
 </template>
@@ -23,11 +24,13 @@
 <script setup lang='ts'>
 import {computed,useSlots,defineEmits,onMounted,ref,unref,useAttrs,Ref} from 'vue';
 import FormItem from "./components/FormItem.tsx";
+import FormAction from "./components/FormAction";
 import dayjs from 'dayjs';
 import  {dateItemType} from '@/utils/helper';
 import { cloneDeep } from 'lodash-es';
 import { useFormValues } from './hooks/useFormValues';
 import { useFormEvents } from './hooks/useFormEvents';
+import { createFormContext} from './hooks/useFormContext';
 import useAdvanced from './hooks/useAdvanced';
 import { FormActionType, FormSchema,AdvanceState,FormProps } from './types/form';
 import {basicProps} from './props';
@@ -97,6 +100,7 @@ const getSchema = computed(():FormSchema[]=>{
     return cloneDeep(schemas as FormSchema[] );
   }
 });
+
 const {handleToggleAdvanced ,fieldsIsAdvancedMap} = useAdvanced({
   advanceState,
   emit,
@@ -136,6 +140,11 @@ defaultValueRef,
 formElRef:formElRef as Ref<FormActionType>,
 schemaRef: schemaRef as Ref<FormSchema[]>,
 handleFormValues,
+});
+
+createFormContext({
+  resetAction:resetFields,
+  submitAction:handleSubmit,
 });
 
 watch(()=>unref(getProps).schemas,(schemas)=>{

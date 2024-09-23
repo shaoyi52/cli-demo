@@ -2,8 +2,8 @@
   <!-- <Search :visible="true" /> -->
   <el-card>
     <Form @register="registerForm" @submit="formSubmit">
-      <template #f3="{ schema, field }">
-        <el-input placeholder="自定义slot" :model-value="schema['defaultValue']" />
+      <template #f3="{ schema, formModel }">
+        <el-input v-model="formModel['field3']" placeholder="自定义slot" />
       </template>
       <template #f2="{ model, field }">
         <el-input placeholder="自定义2slot" />
@@ -17,24 +17,57 @@
   
 <script setup lang='ts'>
 import {  FormSchema, useForm } from '@/components/Form';
+const options = ref([  
+  { value: 'option1', label: '选项1' },  
+  { value: 'option2', label: '选项2' },  
+  // 更多选项...  
+]);
 const schemas: FormSchema[] = [
+  {
+    field: 'CustomerId',
+    component: 'CustomSelect',
+    label: '甲方',
+    colProps: {
+      span: 12,
+    },
+    rules: [{ required: true }],
+    defaultValue: 'option1',
+    componentProps:{   
+      options,  
+    },
+  },
   {
     field: 'field3',
     component: 'ElInput',
-    label: '自定义',
+    label: '签约人',
     colProps: {
-      span: 8,
+      span: 12,
     },
     slot:"f3",
     rules: [{ required: true }],
-    defaultValue: '111',
+    defaultValue: '',
   },
+  {
+    field: 'radio',
+    component: 'CustomRadio',
+    label: '选项',
+    colProps: {
+      span: 12,
+    },
+    componentProps:{   
+      options:[{ value: 'option1', label: '选项1' },  
+      { value: 'option2', label: '选项2' }]  ,  
+    },
+    rules: [{ required: true }],
+    defaultValue: 'option2',
+  },
+  
   {
     field: 'field1',
     component: 'ElInput',
     label: '签约客户名称',
     colProps: {
-      span: 8,
+      span: 12,
     },
     rules: [{ required: true }],
     defaultValue: '111',
@@ -46,23 +79,11 @@ const schemas: FormSchema[] = [
     rulesMessageJoinLabel:true,
     required:true,
     colProps: {
-      span: 8,
-    },
-  },
-  {
-    field: 'field4',
-    component: 'ElSelect',
-    label: '我方公司名称',
-    rulesMessageJoinLabel:true,
-    componentProps:{
-      
-    },
-    required:true,
-    colProps: {
-      span: 8,
+      span: 12,
     },
   },
 ];
+
 const [registerForm,{
   submit:handleSubmit,
 }]=useForm({

@@ -8,4 +8,4 @@ export interface ColEx {
   flex?: ColSpanType
 }
 
-export type ComponentType ='ElDivider'|'ElInput'
+export type ComponentType ='ElDivider'|'ElInput'|'ElSelect'|'CustomRadio'|'CustomSelect'

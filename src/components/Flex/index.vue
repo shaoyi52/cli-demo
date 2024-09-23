@@ -37,7 +37,8 @@ import {isPresetSize} from '../_util/gapSize';
       default:'',
     },
     vertical:{
-      type:String,
+      type:Boolean,
+      default:false,
     },
     wrap:{
       type:String,
@@ -89,7 +90,7 @@ import {isPresetSize} from '../_util/gapSize';
  .ant-flex{
   display: flex;
   &-vertical{
-    flex-direction:'column'
+    flex-direction:column
   }
   &-rtl{
     direction: 'rtl'

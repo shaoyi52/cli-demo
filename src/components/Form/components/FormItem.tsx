@@ -32,10 +32,11 @@ export default defineComponent({
     const { schema} = toRefs(props)
 
     const getValues = computed(()=>{
-      const { schema } = props
+      const { schema,formModel } = props
       return {
         field:schema.field,
-        schema: schema
+        schema: schema,
+        formModel
       }
     })
 
@@ -145,10 +146,11 @@ export default defineComponent({
           props.setFormModel(field,value,props.schema)
         }
       }
+      console.log('modelValue',field,props.formModel[field])
       const bindValue={
         [valueField||(isCheck ? 'checked' : 'modelValue')]:props.formModel[field]
       }
-      const compAttr={...on,...bindValue}
+      const compAttr={...propsData,...on,...bindValue}
       const Comp=componentMap.get(component)
         
         return <Comp {...compAttr}></Comp> 
@@ -195,7 +197,7 @@ export default defineComponent({
         prop={field}  
          
       >
-      <div style="display:flex">
+      <div style="display:flex;flex:1;">
         <div style="flex:1;">{getContent()}</div>
         {showSuffix && <span class="suffix">{getSuffix}</span>}
       </div>

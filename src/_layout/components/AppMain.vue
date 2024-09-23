@@ -41,12 +41,12 @@ watch(()=> useSettingsStore().animationEnable, (val) => {
   position: relative;
   overflow: hidden;
   background: #e0e0e0;
+  overflow-y: scroll;
   .app-container-wrap{
     margin: 15px;
     width:auto;
-    background:#fff;
-    height: calc( 100vh - 145px );
-    overflow-y: scroll;
+    background:#e0e0e0;
+    height: calc( 100vh - 145px );   
   }
 }
 
